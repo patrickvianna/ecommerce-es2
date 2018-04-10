@@ -1,0 +1,10 @@
+
+angularJS/node_modules/
+
+backend/node_modules/
+
+.env
+
+*.log
+
+backend1/node_modules/
