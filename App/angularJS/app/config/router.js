@@ -4,10 +4,10 @@ angular.module('myApp').config(['$stateProvider', '$urlRouterProvider', '$httpPr
             url: "/ticketList",
             templateUrl: "template/ticket.list.html"
         })*/
-        /*.state('newTicket', {
-            url: "/newTicket",
-            templateUrl: "template/ticket.new.html"
-        })*/.state('login', {
+        .state('newUser', {
+            url: "/newUser",
+            templateUrl: "template/user/registerUser.html"
+        }).state('login', {
             url: "/login",
             templateUrl: "template/login.html"
         })/*.state('ticketDetalhe', {
