@@ -1,7 +1,7 @@
 (function() {
-    angular.module('myApp').controller('NewUser', ['$scope', '$http', 'consts', 'Msg', '$state', NewUserController])
+    angular.module('myApp').controller('NewCustomer', ['$scope', '$http', 'consts', 'Msg', '$state', NewCustomerController])
 
-    function NewUserController($scope, $http, consts, Msg, $state) {
+    function NewCustomerController($scope, $http, consts, Msg, $state) {
         const vm = this
 
         vm.projetos = {

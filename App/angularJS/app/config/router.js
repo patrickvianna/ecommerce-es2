@@ -4,16 +4,16 @@ angular.module('myApp').config(['$stateProvider', '$urlRouterProvider', '$httpPr
             url: "/ticketList",
             templateUrl: "template/ticket.list.html"
         })*/
-        .state('newUser', {
-            url: "/newUser",
-            templateUrl: "template/user/registerUser.html"
+        .state('newCustomer', {
+            url: "/newCustomer",
+            templateUrl: 'template/customer/registerCustomer.html'
         }).state('login', {
             url: "/login",
             templateUrl: "template/login.html"
-        })/*.state('ticketDetalhe', {
-            url:'/detalhe-ticket/:idTicketRota', 
-            templateUrl: 'template/ticket.detail.html'
-        })*/
+        }).state('searchCustomer', {
+            url:'/searchCustomer', 
+            templateUrl: 'template/customer/registerCustomer.html'
+        })
 
         $urlRouterProvider.otherwise('/login')
 

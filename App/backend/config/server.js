@@ -15,4 +15,11 @@ server.listen(port, function() {
   console.log(`BACKEND is running on port ${port}.`)
 })
 
-module.exports = server
+var escdb = {
+  host: "35.198.21.170",
+  user: "sampleuser",
+  password: "125678",
+  database : "escdb"
+};
+
+module.exports = { server, escdb }

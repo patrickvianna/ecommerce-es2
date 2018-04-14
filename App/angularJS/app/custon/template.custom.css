@@ -1,5 +1,5 @@
 .main-footer {
-    position: fixed;
+    /*position: fixed;*/
     bottom: 0px;
     width: 100%
 }
@@ -12,12 +12,6 @@
     padding: 5%;
 }
 
-.main-footer {
-    position: fixed;
-    bottom:0px;
-    width:100%;
-  }
-  
   #toast-container {
     top: 70px;
   }

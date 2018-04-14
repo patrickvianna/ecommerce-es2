@@ -21,6 +21,14 @@ module.exports = function (server) {
     server.use('/api', protectedApi)
     const teste = require('../api/createTable')
     protectedApi.post('/getTeste', teste.getTeste)
+
+    const customer = require('../api/customerDao')
+    protectedApi.post('/getCustomer', customer.getCustomer)
+    protectedApi.post('/getAllCustomers', customer.getAllCustomers)
+    protectedApi.post('/updateCustomer', customer.updateCustomer)
+    protectedApi.post('/setCustomer', customer.setCustomer)
+    protectedApi.post('/delCustomer', customer.delCustomer)
+    
 /*
     const ticketService = require('../api/ticket/ticketService')
     //ticketService.getTickets(protectedApi, 'getTickets')
