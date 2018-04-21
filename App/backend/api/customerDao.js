@@ -1,8 +1,8 @@
-const restful = requere('node-restful')
+//const restful = require('node-restful')
 const mysql = require(`mysql`);
-const webConfig = require ('../config/server')
+const escdb = require ('../config/web.config')
 
-const getCustomer = (req, body, next) => {
+const getCustomer = (req, res, next) => {
     const customer = req.body.idCustomer || ''
     
     var conn = mysql.createConnection(webConfig.escdb);
@@ -19,11 +19,11 @@ const getCustomer = (req, body, next) => {
         })
 }
 
-const getAllCustomers = (req, body, next) => {
+const getAllCustomers = (req, res, next) => {
     var conn = mysql.createConnection(webConfig.escdb);
     conn.connect();
 
-    conn.query("SELECT * FROM TAB_CLIENTE;",
+    conn.query("SELECT * FROM TAB_CLIENTE C INNER JOIN TAB_PESSOA P ON C.PESSOA = P.ID",
         function (error, results, fiels) {
             if (error)
                 res.json(error)
@@ -34,7 +34,7 @@ const getAllCustomers = (req, body, next) => {
         })
 }
 
-const updateCustomer = (req, body, next) => {
+const updateCustomer = (req, res, next) => {
     const nome = req.body.nome || ''
     const telefone = req.body.telefone || ''
     const endereco = req.body.endereco || ''
@@ -53,7 +53,7 @@ const updateCustomer = (req, body, next) => {
 
         })
     
-    conn.query(`UPDATE TAB_CLIENTE SET ENDERECO = ${endereco} WHERE PESSOA = ?;`  , pessoa, 
+    conn.query(`UPDATE TAB_CLIENTE SET ENDERECO = ${endereco} WHERE PESSOA = ?`  , pessoa, 
         function (error, results, fiels) {
             if (error)
                 res.json(error)
@@ -70,37 +70,46 @@ const updateCustomer = (req, body, next) => {
     })*/
 }
 
-const setCustomer = (req, body, next) => {
+const setCustomer = (req, res, next) => {
     const nome = req.body.nome || ''
     const telefone = req.body.telefone || ''
     const endereco = req.body.endereco || ''
     const pessoa = req.body.pessoa || '' 
 
-    var conn = mysql.createConnection(webConfig.escdb);
+    console.log(nome)
+    console.log(telefone)
+    console.log(endereco)
+    console.log(pessoa)
+    
+    console.log(escdb)
+    var conn = mysql.createConnection(escdb);
     conn.connect();
+    console.log('conectou')
 
-    conn.query(`INSERT INTO TAB_PESSOA (NOME, TELEFONE) VALUES (?, ?);`  , nome, telefone,  
+    let params = [nome, telefone]
+
+    conn.query(`INSERT INTO TAB_PESSOA (NOME, TELEFONE) VALUES (?, ?)`  , params,  
         function (error, results, fiels) {
             if (error)
                 res.json(error)
-            else
-                re.json(results);
-            conn.end()
-
+            conn.query(`INSERT INTO TAB_PESSOA (NOME, TELEFONE) VALUES (?, ?)`  , params,  
+                function (error, results, fiels) {
+                
+                    console.log(results)
+                conn.query(`INSERT INTO TAB_CLIENTE (ENDERECO, PESSOA) VALUES (?, SELECT TOP 1 ID
+                    FROM TAB_PESSOA ORDER BY ID DESC)`  ,endereco,  
+                    function (error, results, fiels) {
+                        if (error)
+                            res.json(error)
+                        else
+                            res.json(results);
+                        conn.end()
+            
+                    })
+                })
         })
-    conn.query(`INSERT INTO TAB_CLIENTE (ENDERECO, PESSOA) VALUES (?, SELECT LAST_INSERT_ID());`  ,endereco,  
-        function (error, results, fiels) {
-            if (error)
-                res.json(error)
-            else
-                re.json(results);
-            conn.end()
+    
 
-        })
-
-        /*
-SELECT LAST_INSERT_ID()
-        */
     
     /*router.post('/clientes', (req, res) =>{
         const nome = req.body.nome.substring(0,150);
@@ -141,6 +150,6 @@ const delCustomer = (req, body, next) => {
     })*/
 }
 
-module.exports = { getCustomer ,  getAllCustomers, updateCustomer , setCustomer }
+module.exports = { getCustomer ,  getAllCustomers, updateCustomer , setCustomer, delCustomer }
 
 

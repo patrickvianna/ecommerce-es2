@@ -1,23 +1,19 @@
 (function() {
-    angular.module('myApp').controller('NewCustomer', ['$scope', '$http', 'consts', 'Msg', '$state', NewCustomerController])
+    angular.module('myApp').controller('NewCustomer', ['$scope', '$http', 'consts', 'Msg', '$state', 'Customer', NewCustomerController])
 
-    function NewCustomerController($scope, $http, consts, Msg, $state) {
+    function NewCustomerController($scope, $http, consts, Msg, $state, Customer) {
         const vm = this
 
-        vm.projetos = {
-            lista : [],
-            selectedOption: {id: '', name: ''} 
+        vm.registerCustomer = () => {
+            console.log('REGISTRANDO')
+            Customer.registerCustomer('Patrick', '00000', 'Av Hugo Viola', 1, 4);
         }
 
-        vm.tarefa = {
-            idUser: '',
-            titulo: '',
-            descricao : '',
-            tipo: '',
-            prioridade: '',
-            projeto: ''            
+        vm.user = {
+            login : 0,
+            senha : 1
         }
-
+        console.log('entrei')
         /*vm.setTickets = () => {
             vm.tarefa.tipo = vm.tipo.idTipo
             vm.tarefa.prioridade = vm.severidade.idSeveridade

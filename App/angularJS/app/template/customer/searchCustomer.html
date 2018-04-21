@@ -2,7 +2,17 @@
     <div class="col-xs-10 col-xs-offset-1 col-md-10 col-md-offset-1 ">
     <div class="jumbotron " ng-controller="NewCustomer as nUserC">	
      
-        <form name="contatoForm">
+
+        <form  ng-submit="nUserC.logar()">
+            <div class="form-group">
+                <input type="text" ng-model="nUserC.user.login" class="form-control" placeholder="username"/>
+                <input type="password" ng-model="nUserC.user.senha" class="form-control" placeholder="password"/>
+            </div>
+            <a type="button" class="btn btn-link"  > Não tenho cadastro </a>
+            <button  class="btn btn-primary btn-block">Entrar</button> 
+        </form>
+        
+        <!--form name="contatoForm">
             <h2>Cadastrar cliente</h2>
             Nome:
             <input class="form-control" type="text" ng-model="nUserC.tarefa.titulo" name="title" placeholder="Título" ng-required="true" ng-minlength="10"/>
@@ -11,7 +21,7 @@
         </form>
         Endereço:
         <textarea class="form-control" ng-model="nUserC.tarefa.descricao" name="Descricao" form="contatoForm" placeholder="Descrição" maxlength="500"></textarea>
-     
+    -->
         <!--div ng-show="contatoForm.title.$error.required && contatoForm.title.$edirty" class="alert alert-danger">
             Por favor, preencha o nome!
         </div>
@@ -23,8 +33,8 @@
             Por favor, preencha o telefone!
         </div-->
         <a class="btn btn-info btn-sm" ui-sref="ticketList">Voltar</a>
-        <button class="btn btn-primary btn-block" ng-click="nUserC.registerCustomer()" >Adicionar Cliente</button> <!-- ng-disabled="!contatoForm.$valid"-->
+        <button class="btn btn-primary btn-block" ng-click="nUserC.setTickets()" >Adicionar Cliente</button> <!-- ng-disabled="!contatoForm.$valid"-->
     
     </div>
     </div>
-    </div>
+</div>

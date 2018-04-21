@@ -6,7 +6,7 @@ module.exports = function (server) {
     /*
      * Rotas abertas
      */
-    /*const openApi = express.Router()
+  /*  const openApi = express.Router()
     server.use('/oapi', openApi)
 
     const AuthService = require('../api/user/authService')
@@ -19,8 +19,8 @@ module.exports = function (server) {
      */
     const protectedApi = express.Router()
     server.use('/api', protectedApi)
-    const teste = require('../api/createTable')
-    protectedApi.post('/getTeste', teste.getTeste)
+    //const teste = require('../api/createTable')
+    //protectedApi.post('/getTeste', teste.getTeste)
 
     const customer = require('../api/customerDao')
     protectedApi.get('/getCustomer', customer.getCustomer)
