@@ -6,7 +6,7 @@ module.exports = function (server) {
     /*
      * Rotas abertas
      */
-    /*const openApi = express.Router()
+  /*  const openApi = express.Router()
     server.use('/oapi', openApi)
 
     const AuthService = require('../api/user/authService')
@@ -19,15 +19,22 @@ module.exports = function (server) {
      */
     const protectedApi = express.Router()
     server.use('/api', protectedApi)
-    const teste = require('../api/createTable')
-    protectedApi.post('/getTeste', teste.getTeste)
+    //const teste = require('../api/createTable')
+    //protectedApi.post('/getTeste', teste.getTeste)
 
     const customer = require('../api/customerDao')
     protectedApi.post('/getCustomer', customer.getCustomer)
-    protectedApi.post('/getAllCustomers', customer.getAllCustomers)
+    protectedApi.get('/getAllCustomers', customer.getAllCustomers)
     protectedApi.post('/updateCustomer', customer.updateCustomer)
     protectedApi.post('/setCustomer', customer.setCustomer)
     protectedApi.post('/delCustomer', customer.delCustomer)
+
+    const product = require('../api/productDao')
+    protectedApi.post('/getProduct', product.getProduct)
+    protectedApi.get('/getAllProducts', product.getAllProducts)
+    protectedApi.post('/updateProduct', product.updateProduct)
+    protectedApi.post('/setProduct', product.setProduct)
+    protectedApi.post('/delProduct', product.delProduct)
     
 /*
     const ticketService = require('../api/ticket/ticketService')
