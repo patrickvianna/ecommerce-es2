@@ -3,65 +3,70 @@ const mysql = require(`mysql`);
 const escdb = require ('../config/web.config')
 
 const getCustomer = (req, res, next) => {
-    const customer = req.body.idCustomer || ''
+    const customer = req.body.id || 0
     
-    var conn = mysql.createConnection(webConfig.escdb);
+    var conn = mysql.createConnection(escdb);
     conn.connect();
 
-    conn.query("SELECT * FROM TAB_CLIENTE WHERE ID = ?;", customer, 
+    conn.query("SELECT C.id, P.ID pessoa, P.NOME name, C.ENDERECO address, P.TELEFONE phone FROM TAB_CLIENTE C INNER JOIN TAB_PESSOA P ON C.PESSOA = P.ID WHERE C.ID = ?", customer,
         function (error, results, fiels) {
             if (error)
                 res.json(error)
             else
-                re.json(results);
+                res.json(results);
             conn.end()
 
         })
 }
 
 const getAllCustomers = (req, res, next) => {
-    var conn = mysql.createConnection(webConfig.escdb);
+    var conn = mysql.createConnection(escdb);
     conn.connect();
 
-    conn.query("SELECT * FROM TAB_CLIENTE C INNER JOIN TAB_PESSOA P ON C.PESSOA = P.ID",
+    conn.query("SELECT C.id, P.ID pessoa, P.NOME name, C.ENDERECO address, P.TELEFONE phone FROM TAB_CLIENTE C INNER JOIN TAB_PESSOA P ON C.PESSOA = P.ID",
         function (error, results, fiels) {
             if (error)
                 res.json(error)
             else
-                re.json(results);
+                res.json(results);
             conn.end()
 
         })
 }
 
 const updateCustomer = (req, res, next) => {
-    const nome = req.body.nome || ''
-    const telefone = req.body.telefone || ''
-    const endereco = req.body.endereco || ''
-    const pessoa = req.body.pessoa || '' 
+    let id = req.body.id || ''
+    const name = req.body.name || ''
+    const phone = req.body.phone || ''
+    const address = req.body.address || ''
+    let pessoa = req.body.pessoa || ''
 
-    var conn = mysql.createConnection(webConfig.escdb);
+    pessoa = parseInt(pessoa)
+    id = parseInt(id)
+    
+
+    console.log(req.body)
+    var conn = mysql.createConnection(escdb);
     conn.connect();
 
-    conn.query(`UPDATE TAB_PESSOA SET NOME = ${nome}, TELEFONE = ${telefone} WHERE PESSOA = ?;`  , pessoa, 
+    conn.query("UPDATE TAB_PESSOA  SET NOME = ?, TELEFONE = ? WHERE ID = ?"  , 
+    [name, phone, pessoa], 
         function (error, results, fiels) {
             if (error)
                 res.json(error)
-            else
-                re.json(results);
-            conn.end()
-
+            
+            conn.query("UPDATE TAB_CLIENTE SET ENDERECO = ? WHERE PESSOA = ?"  , [address, pessoa], 
+            function (error, results, fiels) {
+                if (error)
+                    res.json(error)
+                else
+                    res.json(results);
+                conn.end()
+    
+            })
         })
     
-    conn.query(`UPDATE TAB_CLIENTE SET ENDERECO = ${endereco} WHERE PESSOA = ?`  , pessoa, 
-        function (error, results, fiels) {
-            if (error)
-                res.json(error)
-            else
-                re.json(results);
-            conn.end()
-
-        })
+    
     /*router.patch('/clientes/:id', (req, res) =>{
         const id = parseInt(req.params.id);
         const nome = req.body.nome.substring(0,150);
@@ -75,16 +80,9 @@ const setCustomer = (req, res, next) => {
     const telefone = req.body.telefone || ''
     const endereco = req.body.endereco || ''
     const pessoa = req.body.pessoa || '' 
-
-    console.log(nome)
-    console.log(telefone)
-    console.log(endereco)
-    console.log(pessoa)
     
-    console.log(escdb)
     var conn = mysql.createConnection(escdb);
     conn.connect();
-    console.log('conectou')
 
     let params = [nome, telefone]
 
@@ -92,21 +90,19 @@ const setCustomer = (req, res, next) => {
         function (error, results, fiels) {
             if (error)
                 res.json(error)
-            conn.query(`INSERT INTO TAB_PESSOA (NOME, TELEFONE) VALUES (?, ?)`  , params,  
+                const idPessoa = results.insertId
+
+            conn.query(`INSERT INTO TAB_CLIENTE (ENDERECO, PESSOA) VALUES (?, ?)`  ,
+            [ endereco, idPessoa],  
                 function (error, results, fiels) {
-                
-                    console.log(results)
-                conn.query(`INSERT INTO TAB_CLIENTE (ENDERECO, PESSOA) VALUES (?, SELECT TOP 1 ID
-                    FROM TAB_PESSOA ORDER BY ID DESC)`  ,endereco,  
-                    function (error, results, fiels) {
-                        if (error)
-                            res.json(error)
-                        else
-                            res.json(results);
-                        conn.end()
-            
-                    })
+                    if (error)
+                        res.json(error)
+                    else
+                        res.json(results);
+                    conn.end()
+        
                 })
+            
         })
     
 
@@ -118,31 +114,33 @@ const setCustomer = (req, res, next) => {
     })*/
 }
 
-const delCustomer = (req, body, next) => {
-    const pessoa = req.body.pessoa || '' 
+const delCustomer = (req, res, next) => {
+    let pessoa = req.body.pessoa || '' 
+    let idCustomer = req.body.idCustomer || ''
+    
+    pessoa = parseInt(pessoa)
+    idCustomer = parseInt(idCustomer)
 
-    var conn = mysql.createConnection(webConfig.escdb);
+    var conn = mysql.createConnection(escdb);
     conn.connect();
 
-    conn.query(`DELETE TAB_CLIENTE WHERE PESSOA = ?;`  ,pessoa,  
+    conn.query(`DELETE FROM TAB_CLIENTE WHERE ID = ?`  ,idCustomer,  
         function (error, results, fiels) {
+            console.log(error)
             if (error)
                 res.json(error)
-            else
-                re.json(results);
-            conn.end()
-
-        })
-
-    conn.query(`DELETE TAB_PESSOA WHERE ID = ?;`  , pessoa,  
-        function (error, results, fiels) {
-            if (error)
-                res.json(error)
-            else
-                re.json(results);
-            conn.end()
-
-        })
+            
+                conn.query(`DELETE FROM TAB_PESSOA WHERE ID = ?`  , pessoa,  
+                function (error, results, fiels) {
+                    console.log(results)
+                    if (error)
+                        res.json(error)
+                    else
+                        res.json(results);
+                    conn.end()
+        
+                })
+        })    
     
     
     /*router.delete('/clientes/:id', (req, res) =>{

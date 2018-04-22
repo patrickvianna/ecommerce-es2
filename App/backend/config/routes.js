@@ -23,11 +23,18 @@ module.exports = function (server) {
     //protectedApi.post('/getTeste', teste.getTeste)
 
     const customer = require('../api/customerDao')
-    protectedApi.get('/getCustomer', customer.getCustomer)
+    protectedApi.post('/getCustomer', customer.getCustomer)
     protectedApi.get('/getAllCustomers', customer.getAllCustomers)
-    protectedApi.patch('/updateCustomer', customer.updateCustomer)
+    protectedApi.post('/updateCustomer', customer.updateCustomer)
     protectedApi.post('/setCustomer', customer.setCustomer)
-    protectedApi.delete('/delCustomer', customer.delCustomer)
+    protectedApi.post('/delCustomer', customer.delCustomer)
+
+    const product = require('../api/productDao')
+    protectedApi.post('/getProduct', product.getProduct)
+    protectedApi.get('/getAllProducts', product.getAllProducts)
+    protectedApi.post('/updateProduct', product.updateProduct)
+    protectedApi.post('/setProduct', product.setProduct)
+    protectedApi.post('/delProduct', product.delProduct)
     
 /*
     const ticketService = require('../api/ticket/ticketService')

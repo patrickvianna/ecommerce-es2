@@ -1,5 +1,5 @@
 (function () {
-    angular.module('myApp').factory('Customer', ['$http', 'consts', function ($http, consts){
+    angular.module('myApp').factory('Customer', ['$http', 'consts', '$q', function ($http, consts, $q){
 
         let idPerson;
         let idCustomer;
@@ -20,22 +20,76 @@
         }
 
         function registerCustomer (nome, telefone, endereco, idPerson, idCustomer) {
-            console.log("ENTREI AQUI")
-            let cust = new Customer(nome, telefone, endereco, idPerson, idCustomer)
-            console.log(cust)
-            
-            $http.post(`${consts.apiUrl}/setCustomer`, cust)
-                .then(resp => {
-                    //return resp.body;
-                    console.log(resp)
-                }).catch(function (resp) {
-                    //return error;
-                    console.log(resp)
-                })
+            return $q(function (resolve, reject){
+                let cust = new Customer(nome, telefone, endereco, idPerson, idCustomer)
+    
+                $http.post(`${consts.apiUrl}/setCustomer`, cust)
+                    .then(resp => {
+                        resolve(true)
+                    }).catch(function (resp) {
+                        reject(false)
+                    })                    
+            })   
         }
 
-        //const User.build =() =>
+        function searchCustomer  (id, name) {
+            return $q(function (resolve, reject){
+                const cust = { id, name }
+    
+                $http.get(`${consts.apiUrl}/getAllCustomers`, cust)
+                    .then(resp => {
+                        resolve(resp.data)
+                    }).catch(function (resp) {
+                        reject(resp)
+                    })                    
+            })            
+        }
 
-        return { registerCustomer , Customer};
+        function viewCustomer (id) {
+            return $q(function (resolve, reject){
+                const cust = { id }
+    
+                $http.post(`${consts.apiUrl}/getCustomer`, cust)
+                    .then(resp => {
+                        resolve(resp.data[0])
+                    }).catch(function (resp) {
+                        reject(resp)
+                    })
+                    
+            })  
+        }
+
+        function updateCustomer (Customer) {
+            return $q(function (resolve, reject){
+                //const cust = { id }
+                console.log(Customer)
+
+    
+                $http.post(`${consts.apiUrl}/updateCustomer`, Customer.value)
+                    .then(resp => {
+                        resolve(true)
+                    }).catch(function (resp) {
+                        reject(false)
+                    })
+                    
+            })  
+        }
+
+        function deleteCustomer (idCustomer, pessoa) {
+            return $q(function (resolve, reject){
+                let cust = { idCustomer, pessoa }
+    
+                $http.post(`${consts.apiUrl}/delCustomer`, cust)
+                    .then(resp => {
+                        resolve(true)
+                    }).catch(function (resp) {
+                        reject(false)
+                    })                    
+            })  
+        }
+
+
+
+        return { registerCustomer , searchCustomer, viewCustomer, updateCustomer, deleteCustomer, Customer };
     }])
 })()

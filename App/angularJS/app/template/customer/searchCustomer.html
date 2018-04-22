@@ -1,15 +1,24 @@
 <div class=" row">
     <div class="col-xs-10 col-xs-offset-1 col-md-10 col-md-offset-1 ">
-    <div class="jumbotron " ng-controller="NewCustomer as nUserC">	
+    <div class="jumbotron " ng-controller="CustomerCtrl as nCust">	
      
-
-        <form  ng-submit="nUserC.logar()">
+        <form  ng-submit="nCust.searchCustomer()">
             <div class="form-group">
-                <input type="text" ng-model="nUserC.user.login" class="form-control" placeholder="username"/>
-                <input type="password" ng-model="nUserC.user.senha" class="form-control" placeholder="password"/>
+                <div class="row">
+                    <div class="col-md-4">
+                        ID : <input type="text" ng-model="nCust.Filter.id" class="form-control" />
+                    </div>
+                    <div class="col-md-4">
+                        NOME : <input type="text" ng-model="nCust.Filter.name" class="form-control" />
+                    </div>
+                    
+                </div>   
+                <div class="row">
+                    <div class="col-md-4">
+                        <button class="btn btn-small btn-primary" >Filtrar</button>
+                    </div>
+                </div>           
             </div>
-            <a type="button" class="btn btn-link"  > Não tenho cadastro </a>
-            <button  class="btn btn-primary btn-block">Entrar</button> 
         </form>
         
         <!--form name="contatoForm">
@@ -31,10 +40,35 @@
     
         <div ng-show="contatoForm.telefone.$error.required && contatoForm.telefone.$dirty" class="alert alert-danger">
             Por favor, preencha o telefone!
-        </div-->
+        </div>
         <a class="btn btn-info btn-sm" ui-sref="ticketList">Voltar</a>
-        <button class="btn btn-primary btn-block" ng-click="nUserC.setTickets()" >Adicionar Cliente</button> <!-- ng-disabled="!contatoForm.$valid"-->
+        <button class="btn btn-primary btn-block" ng-click="nUserC.setTickets()" >Adicionar Cliente</button> < ng-disabled="!contatoForm.$valid"-->
     
+        <div class="table-responsive"></div>
+        <table class="table"> <!-- ng-show="tickets.length > 0" -->
+            <thead class="thead-light">
+                <tr>
+                    <th >ID</a></th>
+                    <th>Nome</a></th>
+                    <th>&nbsp</th>
+                    <th>&nbsp</th>
+                    <th>&nbsp</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="item in nCust.lista.value track by $index"> <!-- | filter: {titulo: criterioDeBusca} | filter: {status: selectedStatus} -->
+                    <td>{{item.id}}</td>
+                    <td>{{item.name}}</td>
+                    <td><a ng-click="nCust.goToViewCustomer(item.id)" ><i class="fa fa-eye"></i> </a></td>
+                    <td><a ng-click="nCust.goToUpdateCustomer(item.id)" ><i class="fa fa-edit"></i> </a></td>
+                    <td><a ng-click="nCust.deleteCustomer(item.id, item.pessoa)"><i class="fa fa-trash"></i> </a></td>
+                    
+                    <!--td><a ng-click="ticketC.detailTicket(ticket.id)" class="btn btn-small btn-danger">Ver</a></td-->
+
+                </tr>
+            </tbody>
+        </table>
+    </div>
     </div>
     </div>
 </div>

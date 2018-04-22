@@ -9,6 +9,24 @@ angular.module('myApp').config(['$stateProvider', '$urlRouterProvider', '$httpPr
         }).state('searchCustomer', {
             url:'/searchCustomer', 
             templateUrl: 'template/customer/searchCustomer.html'
+        }).state('viewCustomer', {
+            url:'/viewCustomer/:id', 
+            templateUrl: 'template/customer/viewCustomer.html'
+        }).state('updateCustomer', {
+            url:'/updateCustomer/:id', 
+            templateUrl: 'template/customer/updateCustomer.html'
+        }).state('registerProduct', {
+            url:'/registerProduct', 
+            templateUrl: 'template/product/registerProduct.html'
+        }).state('searchProduct', {
+            url:'/searchProduct', 
+            templateUrl: 'template/product/searchProduct.html'
+        }).state('viewProduct', {
+            url:'/viewProduct/:id', 
+            templateUrl: 'template/product/viewProduct.html'
+        }).state('updateProduct', {
+            url:'/updateProduct/:id', 
+            templateUrl: 'template/product/updateProduct.html'
         })
 
         $urlRouterProvider.otherwise('/login')
