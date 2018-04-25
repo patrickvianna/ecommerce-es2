@@ -27,6 +27,9 @@ angular.module('myApp').config(['$stateProvider', '$urlRouterProvider', '$httpPr
         }).state('updateProduct', {
             url:'/updateProduct/:id', 
             templateUrl: 'template/product/updateProduct.html'
+        }).state('newFornecedor',{
+            url:"/newFornecedor",
+            templateUrl:'template/Fornecedor/cadastrarFornecedor.html'
         })
 
         $urlRouterProvider.otherwise('/login')
