@@ -1,0 +1,78 @@
+<div class=" row">
+    <div class="col-xs-10 col-xs-offset-1 col-md-10 col-md-offset-1 ">
+    <div class="jumbotron " ng-controller="ProductCtrl as nCust">	
+     
+        <form  ng-submit="nCust.searchProduct()">
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-md-4">
+                        ID : <input type="text" ng-model="nCust.Filter.id" class="form-control" />
+                    </div>
+                    <div class="col-md-4">
+                        NOME : <input type="text" ng-model="nCust.Filter.name" class="form-control" />
+                    </div>
+                    
+                </div>   
+                <div class="row">
+                    <div class="col-md-4">
+                        <button class="btn btn-small btn-primary" >Filtrar</button>
+                    </div>
+                </div>           
+            </div>
+        </form>
+        
+        <!--form name="contatoForm">
+            <h2>Cadastrar cliente</h2>
+            Nome:
+            <input class="form-control" type="text" ng-model="nUserC.tarefa.titulo" name="title" placeholder="Título" ng-required="true" ng-minlength="10"/>
+            Telefone
+            <input class="form-control" type="text" ng-model="nUserC.tarefa.titulo" name="title" placeholder="Título" ng-required="true" ng-minlength="10"/>
+        </form>
+        Endereço:
+        <textarea class="form-control" ng-model="nUserC.tarefa.descricao" name="Descricao" form="contatoForm" placeholder="Descrição" maxlength="500"></textarea>
+    -->
+        <!--div ng-show="contatoForm.title.$error.required && contatoForm.title.$edirty" class="alert alert-danger">
+            Por favor, preencha o nome!
+        </div>
+        <div ng-show="contatoForm.nome.$error.minlength" class="alert alert-danger">
+            No minimo 10 caracteres
+        </div>
+    
+        <div ng-show="contatoForm.telefone.$error.required && contatoForm.telefone.$dirty" class="alert alert-danger">
+            Por favor, preencha o telefone!
+        </div>
+        <a class="btn btn-info btn-sm" ui-sref="ticketList">Voltar</a>
+        <button class="btn btn-primary btn-block" ng-click="nUserC.setTickets()" >Adicionar Cliente</button> < ng-disabled="!contatoForm.$valid"-->
+    
+        <div class="table-responsive"></div>
+        <table class="table"> <!-- ng-show="tickets.length > 0" -->
+            <thead class="thead-light">
+                <tr>
+                    <th >ID</th>
+                    <th>Nome</th>
+                    <th>Valor Unitário</th>
+                    <th>Estoque</th>
+                    <th>&nbsp</th>
+                    <th>&nbsp</th>
+                    <th>&nbsp</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="item in nCust.lista.value track by $index"> <!-- | filter: {titulo: criterioDeBusca} | filter: {status: selectedStatus} -->
+                    <td>{{item.id}}</td>
+                    <td>{{item.name}}</td>
+                    <td>{{item.price}}</td>
+                    <td>{{item.stock}}</td>
+                    <td><a ng-click="nCust.goToViewProduct(item.id)" ><i class="fa fa-eye"></i> </a></td>
+                    <td><a ng-click="nCust.goToUpdateProduct(item.id)" ><i class="fa fa-edit"></i> </a></td>
+                    <td><a ng-click="nCust.deleteProduct(item.id)"><i class="fa fa-trash"></i> </a></td>
+                    
+                    <!--td><a ng-click="ticketC.detailTicket(ticket.id)" class="btn btn-small btn-danger">Ver</a></td-->
+
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    </div>
+    </div>
+</div>
