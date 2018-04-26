@@ -35,6 +35,13 @@ module.exports = function (server) {
     protectedApi.post('/updateProduct', product.updateProduct)
     protectedApi.post('/setProduct', product.setProduct)
     protectedApi.post('/delProduct', product.delProduct)
+
+    const fornecedor = require('../api/fornecedorDao')
+    protectedApi.post('/getFornecedor', fornecedor.getFornecedor)
+    protectedApi.get('/getAllFornecedor', fornecedor.getAllFornecedor)
+    protectedApi.post('/updateFornecedor', fornecedor.updateFornecedor)
+    protectedApi.post('/setFornecedor', fornecedor.setFornecedor)
+    protectedApi.post('/delFornecedor', fornecedor.delFornecedor)
     
 /*
     const ticketService = require('../api/ticket/ticketService')

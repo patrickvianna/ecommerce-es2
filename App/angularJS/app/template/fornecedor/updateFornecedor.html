@@ -1,0 +1,21 @@
+<div class=" row">
+    <div class="col-xs-10 col-xs-offset-1 col-md-10 col-md-offset-1 ">
+    <div class="jumbotron " ng-controller="ViewFornecedorCtrl as nUserF">	
+     
+        <form name="contatoForm">
+            <h2>Visualizar Fornecedor</h2>
+            ID:
+            <input class="form-control" type="text" ng-model="nUserF.Fornecedor.value.ID" name="ID" ng-disabled="true"/>
+            Razão Social:
+            <input class="form-control" type="text" ng-model="nUserF.Fornecedor.value.RAZAO_SOCIAL" name="name" ng-required="true"/>
+            CNPJ:
+            <input class="form-control" type="text" ng-model="nUserF.Fornecedor.value.CNPJ" name="name" ng-required="true"/>
+            Telefone:
+            <input class="form-control" type="text" ng-model="nUserF.Fornecedor.value.TELEFONE" name="phone" ng-required="true"/>
+        </form>
+        Endereço:
+        <textarea class="form-control" ng-model="nUserF.Fornecedor.value.ENDERECO" name="Descricao" form="contatoForm" maxlength="200" ng-required="true"></textarea>
+        <button class="btn btn-primary btn-block" ng-click="nUserF.updateFornecedor()" style="width: 20%;float:right;margin-top: 3%;">Atualizar Cliente</button>
+    </div>
+    </div>
+</div>

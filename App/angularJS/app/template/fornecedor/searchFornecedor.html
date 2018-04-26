@@ -1,0 +1,54 @@
+<div class=" row">
+    <div class="col-xs-10 col-xs-offset-1 col-md-10 col-md-offset-1 ">
+    <div class="jumbotron " ng-controller="FornecedorCtrl as nForn">	
+     
+        <form  ng-submit="nForn.searchFornecedor()">
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-md-4">
+                        ID : <input type="text" ng-model="nForn.Filter.id" class="form-control" />
+                    </div>
+                    <div class="col-md-4">
+                        Razão Social : <input type="text" ng-model="nForn.Filter.razaoSocial" class="form-control" />
+                    </div>
+                    <div class="col-md-4"  style="padding-top: 2%;">
+                        <button class="btn btn-small btn-primary">Filtrar</button>
+                    </div>
+                </div>   
+                         
+            </div>
+        </form>
+        
+       
+        <div class="table-responsive"></div>
+        <table class="table">
+            <thead class="thead-light">
+                <tr>
+                    <th >ID</a></th>
+                    <th>Razão Social</a></th>
+                    <th>CNPJ</a></th>
+                    <th>Telefone</a></th>
+                    <th>&nbsp</th>
+                    <th>&nbsp</th>
+                    <th>&nbsp</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="item in nForn.lista.value track by $index"> <!-- | filter: {titulo: criterioDeBusca} | filter: {status: selectedStatus} -->
+                    <td>{{item.ID}}</td>
+                    <td>{{item.RAZAO_SOCIAL}}</td>
+                    <td>{{item.CNPJ}}</td>
+                    <td>{{item.TELEFONE}}</td>
+                    <td><a ng-click="nForn.goToViewFornecedor(item.ID)" ><i class="fa fa-eye"></i> </a></td>
+                    <td><a ng-click="nForn.goToUpdateFornecedor(item.ID)" ><i class="fa fa-edit"></i> </a></td>
+                    <td><a ng-click="nForn.deleteFornecedor(item.ID)"><i class="fa fa-trash"></i> </a></td>
+                    
+                    <!--td><a ng-click="ticketC.detailTicket(ticket.id)" class="btn btn-small btn-danger">Ver</a></td-->
+
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    </div>
+    </div>
+</div>

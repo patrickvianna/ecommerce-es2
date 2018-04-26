@@ -5,9 +5,9 @@
         <form name="contatoForm">
             <h2>Cadastrar cliente</h2>
             Nome:
-            <input class="form-control" type="text" ng-model="nUserC.Customer.name" name="title" placeholder="Título" ng-required="true" ng-minlength="5"/>
+            <input class="form-control" type="text" ng-model="nUserC.Customer.name" name="title" placeholder="Nome" ng-required="true" ng-minlength="5"/>
             Telefone
-            <input class="form-control" type="text" ng-model="nUserC.Customer.phone" name="title" placeholder="Título" ng-required="true" ng-minlength="5"/>
+            <input class="form-control" type="text" ng-model="nUserC.Customer.phone" name="title" placeholder="Telefone" ng-required="true" ng-minlength="5"/>
         </form>
         Endereço:
         <textarea class="form-control" ng-model="nUserC.Customer.address" name="Descricao" form="contatoForm" placeholder="Descrição" maxlength="200"></textarea>
@@ -23,7 +23,7 @@
             Por favor, preencha o telefone!
         </div-->
         <a class="btn btn-info btn-sm" ui-sref="ticketList">Voltar</a>
-        <button class="btn btn-primary btn-block" ng-click="nUserC.registerCustomer()" >Adicionar Cliente</button> <!-- ng-disabled="!contatoForm.$valid"-->
+        <button class="btn btn-primary btn-block" ng-click="nUserC.registerCustomer()" style="width: 20%;float:right;margin-top: 3%;">Adicionar</button> <!-- ng-disabled="!contatoForm.$valid"-->
     
     </div>
     </div>
