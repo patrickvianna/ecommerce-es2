@@ -36,11 +36,11 @@ const getAllFornecedor = (req, res, next) => {
 }
 
 const updateFornecedor = (req, res, next) => {
-    let id = req.body.id || ''
-    const razaoSocial = req.body.razaoSocial || ''
-    const cnpj = req.body.cnpj || ''
-    const telefone = req.body.telefone || ''
-    const address = req.body.address || ''
+    let id = req.body.ID || ''
+    const razaoSocial = req.body.RAZAO_SOCIAL || ''
+    const cnpj = req.body.CNPJ || ''
+    const telefone = req.body.TELEFONE || ''
+    const address = req.body.ENDERECO || ''
     
 
     id = parseInt(id)
@@ -49,24 +49,18 @@ const updateFornecedor = (req, res, next) => {
     console.log(req.body)
     var conn = mysql.createConnection(escdb);
     conn.connect();
-
+   
     conn.query("UPDATE TAB_FORNECEDOR SET RAZAO_SOCIAL = ?,CNPJ = ?, TELEFONE = ?, ENDERECO = ? WHERE ID = ?"  , 
-    [razaoSocial, cnpj, telefone, endereco, id], 
+    [razaoSocial, cnpj, telefone, address, id], 
         function (error, results, fiels) {
             if (error)
                 res.json(error)
             else
                 res.json(results);
+                console.log(results);
             conn.end()
         })
-    
-    
-    /*router.patch('/clientes/:id', (req, res) =>{
-        const id = parseInt(req.params.id);
-        const nome = req.body.nome.substring(0,150);
-        const cpf = req.body.cpf.substring(0,11);
-        execSQLQuery(`UPDATE Clientes SET Nome='${nome}', CPF='${cpf}' WHERE ID=${id}`, res);
-    })*/
+
 }
 
 const setFornecedor = (req, res, next) => {
@@ -80,6 +74,7 @@ const setFornecedor = (req, res, next) => {
     conn.connect();
 
     let params = [razaoSocial, cnpj, telefone, endereco]
+    console.log(params);
 
     conn.query(`INSERT INTO TAB_FORNECEDOR (RAZAO_SOCIAL, CNPJ, TELEFONE, ENDERECO) VALUES (?, ?, ?, ?)`  , params,  
         function (error, results, fiels) {
@@ -100,8 +95,9 @@ const setFornecedor = (req, res, next) => {
 }
 
 const delFornecedor = (req, res, next) => {
-    let id = req.body.id || '' 
+    let id = req.body.idFornecedor || '' 
     id = parseInt(id)
+    console.log(id)
 
     var conn = mysql.createConnection(escdb);
     conn.connect();
@@ -113,6 +109,7 @@ const delFornecedor = (req, res, next) => {
                 res.json(error)
             else
                 res.json(results);
+                console.log(results)
             conn.end()
         })    
 }

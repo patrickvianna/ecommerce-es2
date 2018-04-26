@@ -32,13 +32,13 @@
             })   
         }
 
-        function searchFornecedor  (id, razaoSocial, cnpj, telefone, endereco) {
+        function searchFornecedor  (id, razaoSocial) {
             return $q(function (resolve, reject){
-                const cust = { id, razaoSocial ,cnpj, telefone, endereco}
-    
+                const cust = { id, razaoSocial}
                 $http.get(`${consts.apiUrl}/getAllFornecedor`, cust)
                     .then(resp => {
                         resolve(resp.data)
+                        console.log(resp.data);
                     }).catch(function (resp) {
                         reject(resp)
                     })                    
@@ -78,7 +78,6 @@
         function deleteFornecedor (idFornecedor) {
             return $q(function (resolve, reject){
                 let cust = { idFornecedor}
-    
                 $http.post(`${consts.apiUrl}/delFornecedor`, cust)
                     .then(resp => {
                         resolve(true)

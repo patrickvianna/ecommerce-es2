@@ -20,7 +20,7 @@
         vm.lista = { a : 0}
 
         vm.registerFornecedor = () => {
-            let retorno = Fornecedor.registerFornecedor(vm.Fornecedor.razaoSocial, vm.Fornecedor.cnpj,vm.Fornecedor.telefone, vm.Fornecedor.address, 1, 4);
+            let retorno = Fornecedor.registerFornecedor(vm.Fornecedor.razaoSocial, vm.Fornecedor.cnpj,vm.Fornecedor.telefone, vm.Fornecedor.address);
 
             if(retorno)
             {
@@ -29,7 +29,7 @@
                 vm.Fornecedor.cnpj = ""
                 vm.Fornecedor.telefone = ""
                 vm.Fornecedor.address = ""
-                console.log(Fornecedor);
+                
             }                
             else    
                 Msg.addError("Houve um erro ao inserir o fornecedor")                
@@ -43,6 +43,7 @@
         vm.searchFornecedor = () => {
             const a = Fornecedor.searchFornecedor(vm.Filter.id, vm.Filter.razaoSocial)
             vm.lista = a.$$state
+            console.log(vm.lista);
         }
 
         vm.goToViewFornecedor = (idFornecedor) => {
@@ -60,6 +61,7 @@
 
         vm.deleteFornecedor = (idFornecedor) => {
             let retorno = Fornecedor.deleteFornecedor(idFornecedor);
+            
 
             if(retorno)
             {

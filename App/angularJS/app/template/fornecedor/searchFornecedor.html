@@ -35,13 +35,13 @@
             </thead>
             <tbody>
                 <tr ng-repeat="item in nForn.lista.value track by $index"> <!-- | filter: {titulo: criterioDeBusca} | filter: {status: selectedStatus} -->
-                    <td>{{item.id}}</td>
-                    <td>{{item.razaoSocial}}</td>
-                    <td>{{item.cnpj}}</td>
-                    <td>{{item.telefone}}</td>
-                    <td><a ng-click="nForn.goToViewFornecedor(item.id)" ><i class="fa fa-eye"></i> </a></td>
-                    <td><a ng-click="nForn.goToUpdateFornecedor(item.id)" ><i class="fa fa-edit"></i> </a></td>
-                    <td><a ng-click="nForn.deleteFornecedor(item.id)"><i class="fa fa-trash"></i> </a></td>
+                    <td>{{item.ID}}</td>
+                    <td>{{item.RAZAO_SOCIAL}}</td>
+                    <td>{{item.CNPJ}}</td>
+                    <td>{{item.TELEFONE}}</td>
+                    <td><a ng-click="nForn.goToViewFornecedor(item.ID)" ><i class="fa fa-eye"></i> </a></td>
+                    <td><a ng-click="nForn.goToUpdateFornecedor(item.ID)" ><i class="fa fa-edit"></i> </a></td>
+                    <td><a ng-click="nForn.deleteFornecedor(item.ID)"><i class="fa fa-trash"></i> </a></td>
                     
                     <!--td><a ng-click="ticketC.detailTicket(ticket.id)" class="btn btn-small btn-danger">Ver</a></td-->
 

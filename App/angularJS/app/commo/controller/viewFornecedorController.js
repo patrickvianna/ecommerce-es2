@@ -26,6 +26,7 @@
             const idRota = $stateParams.id
             const a = Fornecedor.viewFornecedor(idRota)
             vm.Fornecedor = a.$$state
+            console.log(vm.Fornecedor);
         }
 
         vm.updateFornecedor = () => {
