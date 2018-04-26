@@ -40,6 +40,7 @@
         vm.searchCustomer = () => {
             const a = Customer.searchCustomer(vm.Filter.id, vm.Filter.name)
             vm.lista = a.$$state
+        
         }
 
         vm.goToViewCustomer = (idCustomer) => {

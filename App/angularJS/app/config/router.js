@@ -27,6 +27,18 @@ angular.module('myApp').config(['$stateProvider', '$urlRouterProvider', '$httpPr
         }).state('updateProduct', {
             url:'/updateProduct/:id', 
             templateUrl: 'template/product/updateProduct.html'
+        }).state('newFornecedor',{
+            url:"/newFornecedor",
+            templateUrl:'template/fornecedor/registerFornecedor.html'
+        }).state('searchFornecedor',{
+            url:'/searchFornecedor',
+            templateUrl:'template/fornecedor/searchFornecedor.html'
+        }).state('viewFornecedor',{
+            url:'/viewFornecedor/:id',
+            templateUrl:'template/fornecedor/viewFornecedor.html'
+        }).state('updateFornecedor',{
+            url:'/updateFornecedor/:id',
+            templateUrl:'template/fornecedor/updateFornecedor.html'
         })
 
         $urlRouterProvider.otherwise('/login')
