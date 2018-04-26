@@ -19,13 +19,13 @@
         vm.lista = { a : 0}
 
         vm.registerProduct = () => {
-            let retorno = Product.registerProduct(vm.Product.name, vm.Product.price);
+            let retorno = Product.registerProduct(vm.Product.name, vm.Product.unitValue);
 
             if(retorno)
             {
                 Msg.addSucess("Produto inserido")
                 vm.Product.name = ""
-                vm.Product.price = ""
+                vm.Product.unitValue = ""
             }                
             else    
                 Msg.addError("Houve um erro ao inserir o produto")                

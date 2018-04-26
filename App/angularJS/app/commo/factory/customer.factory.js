@@ -36,7 +36,7 @@
             return $q(function (resolve, reject){
                 const cust = { id, name }
     
-                $http.get(`${consts.apiUrl}/getAllCustomers`, cust)
+                $http.post(`${consts.apiUrl}/getAllCustomers`, cust)
                     .then(resp => {
                         resolve(resp.data)
                     }).catch(function (resp) {

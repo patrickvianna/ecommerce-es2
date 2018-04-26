@@ -20,10 +20,40 @@ const getProduct = (req, res, next) => {
 }
 
 const getAllProducts = (req, res, next) => {
+    let id = req.body.id || ''
+    let name = req.body.name || ''
+
     var conn = mysql.createConnection(escdb);
     conn.connect();
 
-    conn.query("SELECT P.id, P.NOME name, P.VALOR price, P.ESTOQUE stock FROM TAB_PRODUTO P",
+    let comando = "SELECT P.id, P.NOME name, P.VALOR unitValue, P.ESTOQUE stock FROM TAB_PRODUTO P "
+    let paramns = []
+
+    if (id != '' || name != '')
+    {
+        comando = comando + " WHERE "
+        if  (id != '' && name != '')
+        {
+            comando = comando + " P.ID = ? AND P.NOME = ?";
+            paramns.push(parseInt(id))
+            paramns.push(name)
+        }else {
+            if (id != '')
+            {
+                comando = comando + " P.ID = ?"
+                paramns.push(parseInt(id))
+            }else {
+                if (name != '')
+                {
+                    comando = comando + " P.NOME = ?";
+                    paramns.push(name)
+                }
+            }
+        }
+    }
+
+
+    conn.query(comando, paramns,
         function (error, results, fiels) {
             if (error)
                 res.json(error)

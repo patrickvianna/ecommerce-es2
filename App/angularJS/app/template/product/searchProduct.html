@@ -2,20 +2,24 @@
     <div class="col-xs-10 col-xs-offset-1 col-md-10 col-md-offset-1 ">
     <div class="jumbotron " ng-controller="ProductCtrl as nCust">	
      
-        <form  ng-submit="nCust.searchProduct()">
+        <h2>Produto</h2>
+        <form class="form-inline" ng-submit="nCust.searchProduct()">
             <div class="form-group">
                 <div class="row">
-                    <div class="col-md-4">
-                        ID : <input type="text" ng-model="nCust.Filter.id" class="form-control" />
+                    <div class="col-md-4 ">
+                        <label class="sr-only" for="inlineFormInputGroup">ID</label>
+                        <input type="text" ng-model="nCust.Filter.id" class="form-control" placeholder="ID"/>
+                    </div>
+                    <div class="col-md-4 ">
+                        <label class="sr-only" for="inlineFormInputGroup">NOME</label>
+                        <input type="text" ng-model="nCust.Filter.name" class="form-control" placeholder="Nome"/>
                     </div>
                     <div class="col-md-4">
-                        NOME : <input type="text" ng-model="nCust.Filter.name" class="form-control" />
-                    </div>
-                    <div class="col-md-4"  style="padding-top: 2%;">
-                        <button class="btn btn-small btn-primary">Filtrar</button>
+                        <button type="submit" class="btn btn-small btn-primary" >Buscar</button>
                     </div>
                 </div>   
-                     
+                
+                   
             </div>
         </form>
         
@@ -59,7 +63,7 @@
                 <tr ng-repeat="item in nCust.lista.value track by $index"> <!-- | filter: {titulo: criterioDeBusca} | filter: {status: selectedStatus} -->
                     <td>{{item.id}}</td>
                     <td>{{item.name}}</td>
-                    <td>{{item.price}}</td>
+                    <td>{{item.unitValue}}</td>
                     <td>{{item.stock}}</td>
                     <td><a ng-click="nCust.goToViewProduct(item.id)" ><i class="fa fa-eye"></i> </a></td>
                     <td><a ng-click="nCust.goToUpdateProduct(item.id)" ><i class="fa fa-edit"></i> </a></td>
