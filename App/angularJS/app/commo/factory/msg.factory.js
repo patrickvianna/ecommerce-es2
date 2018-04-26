@@ -18,6 +18,14 @@
             addMsg(msgs, titulo, 'error')
         }
 
-        return { addSucess, addError }
+        function addInfo(msgs, titulo = 'Informação') {
+            addMsg(msgs, titulo, 'info')
+        }
+
+        function addWarn(msgs, titulo = 'Atenção') {
+            addMsg(msgs, titulo, 'warning')
+        }
+
+        return { addSucess, addError, addInfo, addWarn }
     }
 })()
