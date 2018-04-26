@@ -30,8 +30,8 @@
         function searchProduct  (id, name) {
             return $q(function (resolve, reject){
                 const prod = { id, name }
-    
-                $http.get(`${consts.apiUrl}/getAllProducts`, prod)
+
+                $http.post(`${consts.apiUrl}/getAllProducts`, prod)
                     .then(resp => {
                         resolve(resp.data)
                     }).catch(function (resp) {
