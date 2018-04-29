@@ -8,7 +8,7 @@
 
         function getUser() {
             if(!user) {
-                user= JSON.parse(localStorage.getItem(consts.userKey))
+                user = localStorage.getItem(consts.userKey)
             }
             return user
         }
@@ -25,8 +25,10 @@
         function submit(url, user, callback) {
             $http.post(`${consts.oapiUrl}/${url}`, user)
                 .then(resp => {
+
                     localStorage.setItem(consts.userKey, JSON.stringify(resp.data))
-                    $http.defaults.headers.common.Authorization = resp.data.token
+                    $http.defaults.headers.common.Authorization = resp.data.id
+                    console.log(resp)
                     if(callback) {
                         callback(null, resp.data)
                      }
@@ -40,7 +42,12 @@
 
         function logout(callback) {
             user = null
-            localStorage.removeItem(consts.userKey)
+
+            console.log('LOGOUT')
+            console.log(getUser())
+            localStorage.removeItem(consts.userKey)   
+            console.log(getUser())
+
             $http.defaults.headers.common.Authorization = ''
             if (callback) callback(null)
         }
