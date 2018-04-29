@@ -1,10 +1,10 @@
 
 angular.module('myApp')
-.component('customerModal', {
+.component('fornecedorModal', {
     template: `<div class="modal-header">
     <button type="button" ng-click="$ctrl.handleDismiss()" class="close" data-dismiss="modal" aria-label="Close">
       <span aria-hidden="true">×</span></button>
-    <h2 class="modal-title">Buscar cliente</h2>
+    <h2 class="modal-title">Buscar fornecedor</h2>
   </div>
 <!-- HEADER -->
 
@@ -13,40 +13,43 @@ angular.module('myApp')
     <span aria-hidden="true">×</span></button-->
     <div class="modal-body">
 
-    <h2>Cliente</h2>
-        <form class="form-inline" ng-submit="$ctrl.searchCustomer()">
+    <h2>Fornecedor</h2>
+
+    <form  ng-submit="$ctrl.searchFornecedor()">
             <div class="form-group">
                 <div class="row">
                     <div class="col-md-4">
-                        <label class="sr-only" for="inlineFormInputGroup">ID</label>
-                        <input type="text" ng-model="$ctrl.Filter.id" class="form-control" placeholder="ID"/>
+                        ID : <input type="text" ng-model="$ctrl.Filter.id" class="form-control" />
                     </div>
                     <div class="col-md-4">
-                        <label class="sr-only" for="inlineFormInputGroup">NOME</label>
-                        <input type="text" ng-model="$ctrl.Filter.name" class="form-control" placeholder="Nome"/>
+                        Razão Social : <input type="text" ng-model="$ctrl.Filter.razaoSocial" class="form-control" />
                     </div>
-                    
-                    <div class="col-md-4">
-                        <button class="btn btn-small btn-primary" >Buscar</button>
+                    <div class="col-md-4"  style="padding-top: 2%;">
+                        <button class="btn btn-small btn-primary">Filtrar</button>
                     </div>
-                </div>           
+                </div>   
+                         
             </div>
         </form>
         
+       
+        <div class="table-responsive"></div>
         <table class="table" ng-show="$ctrl.lista.value.length > 0">
             <thead class="thead-light">
                 <tr>
                     <th >ID</a></th>
-                    <th>Nome</a></th>
+                    <th>Razão Social</a></th>
+                    <th>CNPJ</a></th>
+                    <th>Telefone</a></th>
                 </tr>
             </thead>
             <tbody>
                 <tr ng-repeat="item in $ctrl.lista.value track by $index"> <!-- | filter: {titulo: criterioDeBusca} | filter: {status: selectedStatus} -->
-                    <td>{{item.id}}</td>
-                    <td>{{item.name}}</td>
-                                        
-                    <td><a ng-click="$ctrl.handleClose(item.id, item.name)" class="btn btn-small btn-primary">Selecionar</a></td>
-
+                    <td>{{item.ID}}</td>
+                    <td>{{item.RAZAO_SOCIAL}}</td>
+                    <td>{{item.CNPJ}}</td>
+                    <td>{{item.TELEFONE}}</td>
+                    <td><a ng-click="$ctrl.handleClose(item.ID, item.RAZAO_SOCIAL, item.CNPJ, item.TELEFONE)" class="btn btn-small btn-primary">Selecionar</a></td>
                 </tr>
             </tbody>
         </table>
@@ -64,7 +67,7 @@ angular.module('myApp')
         modalData: '<',
         //tarefa: '<'
     },
-    controller: ['$http', 'consts', 'Customer', function($http, consts, Customer) {
+    controller: ['$http', 'consts', 'Fornecedor', function($http, consts, Fornecedor) {
         var $ctrl = this;
 
         $ctrl.Filter = {
@@ -72,18 +75,19 @@ angular.module('myApp')
             name :  ''
         }
 
-        $ctrl.searchCustomer = () => {
-            const a = Customer.searchCustomer($ctrl.Filter.id, $ctrl.Filter.name)
+        $ctrl.searchFornecedor = () => {
+            const a = Fornecedor.searchFornecedor($ctrl.Filter.id, $ctrl.Filter.name)
             $ctrl.lista = a.$$state
-            console.log('CHAMEI')
         }
 
-        $ctrl.handleClose = function(id, name) {
+        $ctrl.handleClose = function(id, name, unitValue, stock) {
             console.info("in handle close");
             $ctrl.$close({
                 result: {
                     id, 
-                    name
+                    name,
+                    unitValue,
+                    stock
                 }                
             });
         };
@@ -94,5 +98,6 @@ angular.module('myApp')
                 reason: 'cancel'
             });
         };
+
     }],
 });

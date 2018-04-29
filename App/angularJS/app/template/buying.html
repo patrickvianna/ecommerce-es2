@@ -1,27 +1,27 @@
 <div class=" row">
     <div class="col-xs-10 col-xs-offset-1 col-md-10 col-md-offset-1 ">
-    <div class="jumbotron " ng-controller="SellCtrl as nCust">	
+    <div class="jumbotron " ng-controller="BuyCtrl as nCust">	
      
-        <h2>Realizar venda</h2> </br>
+        <h2>Realizar compra</h2> </br>
               
         <fieldset class="scheduler-border">
-            <legend class="scheduler-border">Cliente</legend>
+            <legend class="scheduler-border">Fornecedor</legend>
             <!--div class="control-group">
                 <label class="control-label input-label" for="startTime">ID cliente</label>
                 <div class="controls">
                     <input type="text" ng-model="nCust.Filter.name" class="form-control" placeholder=""/>
                 </div>
             </div-->
-            <form class="form-inline" ng-submit="nCust.getCustomer()">
+            <form class="form-inline" ng-submit="nCust.getFornecedor()">
                 <!--div class="form-group"-->
                     <!--div class="row"-->
                         <!--div class="col-md-4"-->
                             <!--label class="sr-only" for="inlineFormInputGroup">ID</label-->
-                            <input type="text" ng-model="nCust.Customer.id" class="form-control" ng-disabled="true"/>
+                            <input type="text" ng-model="nCust.Fornecedor.id" class="form-control" ng-disabled="true"/>
                         <!--/div-->
                         <!--div class="col-md-4"-->
                             <!--label class="sr-only" for="inlineFormInputGroup">NOME</label-->
-                            <input type="text" ng-model="nCust.Customer.name" class="form-control" ng-disabled="true"/>
+                            <input type="text" ng-model="nCust.Fornecedor.name" class="form-control" ng-disabled="true"/>
                         <!--/div-->
                         
                         <!--div class="col-md-4"-->
@@ -113,10 +113,10 @@
                 <tbody>
                     <tr ng-repeat="item in nCust.listProduct track by $index"> <!-- | filter: {titulo: criterioDeBusca} | filter: {status: selectedStatus} -->
                         <td>{{ item.id }}</td>
-                        <td>{ {item.name }}</td>
+                        <td>{{ item.name }}</td>
                         <td>{{ item.unitValue | currency:"R$" }}</td>
                         <td>{{ item.qtd }}</td>
-                        <td>{{ item.total | currency:"R$" /td>
+                        <td>{{ item.total | currency:"R$" }} </td>
                         <td><a ng-click="nCust.deleteProduct(item.id)"><i class="fa fa-trash"></i> </a></td>
                     </tr>
                 </tbody>
