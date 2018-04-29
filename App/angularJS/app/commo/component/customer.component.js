@@ -33,7 +33,7 @@ angular.module('myApp')
             </div>
         </form>
         
-        <table class="table"> <!-- ng-show="tickets.length > 0" -->
+        <table class="table" ng-show="$ctrl.lista.value.length > 0">
             <thead class="thead-light">
                 <tr>
                     <th >ID</a></th>

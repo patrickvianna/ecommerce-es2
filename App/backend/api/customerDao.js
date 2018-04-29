@@ -20,7 +20,6 @@ const getCustomer = (req, res, next) => {
 }
 
 const getAllCustomers = (req, res, next) => {
-    console.log('entrei')
     var conn = mysql.createConnection(escdb);
     conn.connect();
 
