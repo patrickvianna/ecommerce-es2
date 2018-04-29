@@ -64,7 +64,9 @@
 
             a += 1
             if(a ==1 )
-                vm.logout()
+            {
+                vm.logout(a)
+            }                
         }
 
         const signup = () => {
