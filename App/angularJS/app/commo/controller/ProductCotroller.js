@@ -7,7 +7,7 @@
         vm.Product = {
             id : 0,
             name : '',
-            price : '',
+            unitValue : '',
             stock :  ''
         }
 
@@ -37,7 +37,6 @@
         }
 
         vm.goToViewProduct = (idProduct) => {
-            console.log('visao')
             $state.go('viewProduct', { id: idProduct })
         }
 

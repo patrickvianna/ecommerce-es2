@@ -43,7 +43,7 @@
         vm.searchFornecedor = () => {
             const a = Fornecedor.searchFornecedor(vm.Filter.id, vm.Filter.razaoSocial)
             vm.lista = a.$$state
-            console.log(vm.lista);
+            //console.log(vm.lista);
         }
 
         vm.goToViewFornecedor = (idFornecedor) => {

@@ -121,16 +121,21 @@
                     </tr>
                 </tbody>
             </table>
-            </div>
         </fieldset>
 
-        
+        <div class="row">
+            <div class="col-md-2 col-md-offset-9">
+                <label for="inlineFormInputGroup">Total</label>
+                <input type="text" ng-model="nCust.total" ng-disabled="true">
+            </div>
+        </div>
 
+        <button title="Finalizar compra" class="btn btn-success" ng-click="nCust.buy()">Finalizar compra</button>
 
     </div>
         
         
-    </div>
-    </div>
+    <!--/div>
+    </div-->
     </div>
 </div>

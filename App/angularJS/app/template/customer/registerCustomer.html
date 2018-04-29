@@ -5,17 +5,17 @@
         <form name="contatoForm">
             <h2>Cadastrar cliente</h2>
             Nome:
-            <input class="form-control" type="text" ng-model="nUserC.Customer.name" name="title" placeholder="Nome" ng-required="true" ng-minlength="5"/>
+            <input class="form-control" type="text" ng-model="nUserC.Customer.name" name="nome" placeholder="Nome" ng-required="true" ng-minlength="5"/>
             Telefone
-            <input class="form-control" type="text" ng-model="nUserC.Customer.phone" name="title" placeholder="Telefone" ng-required="true" ng-minlength="5"/>
+            <input class="form-control" type="text" ng-model="nUserC.Customer.phone" name="telefone" placeholder="Telefone" ng-required="true" ng-minlength="5"/>
         </form>
         Endereço:
-        <textarea class="form-control" ng-model="nUserC.Customer.address" name="Descricao" form="contatoForm" placeholder="Descrição" maxlength="200"></textarea>
+        <textarea class="form-control" ng-model="nUserC.Customer.address" name="endereco" form="contatoForm" placeholder="Descrição" ng-minlength="10" ng-maxlength="200"></textarea>
      
-        <!--div ng-show="contatoForm.title.$error.required && contatoForm.title.$edirty" class="alert alert-danger">
+        <!--div ng-show="contatoForm.nome.$error.required && contatoForm.nome.$edirty" class="alert alert-danger">
             Por favor, preencha o nome!
         </div>
-        <div ng-show="contatoForm.nome.$error.minlength" class="alert alert-danger">
+        <div ng-show="contatoForm.endereco.$error.minlength" class="alert alert-danger">
             No minimo 10 caracteres
         </div>
     
