@@ -70,11 +70,9 @@
             })   
         }
 
-        function searchCustomer  (id, name) {
+        function getAllTransactions  (id, name) {
             return $q(function (resolve, reject){
-                const cust = { id, name }
-    
-                $http.post(`${consts.apiUrl}/getAllCustomers`, cust)
+                $http.post(`${consts.apiUrl}/getAllTransactions`, {})
                     .then(resp => {
                         resolve(resp.data)
                     }).catch(function (resp) {
@@ -128,6 +126,6 @@
 
 
 
-        return { sell , buy, Customer };
+        return { sell , buy, getAllTransactions, Customer };
     }])
 })()

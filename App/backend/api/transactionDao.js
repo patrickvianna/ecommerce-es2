@@ -85,16 +85,18 @@ const buy = (req, res, next) => {
     
 }
 
-const getAllCustomers = (req, res, next) => {
+const getAllTransactions = (req, res, next) => {
     var conn = mysql.createConnection(escdb);
     conn.connect();
 
-    conn.query("SELECT C.id, P.ID pessoa, P.NOME name, C.ENDERECO address, P.TELEFONE phone FROM TAB_CLIENTE C INNER JOIN TAB_PESSOA P ON C.PESSOA = P.ID",
+    conn.query("SELECT * FROM (SELECT 'Venda' tipo, ID id, DATA_VENDA data, VALOR valor FROM TAB_VENDA UNION ALL SELECT 'Compra' tipo, ID id, DATA_COMPRA data, VALOR valor  FROM TAB_COMPRA) AS TAB ORDER BY data DESC",
         function (error, results, fiels) {
             if (error)
                 res.json(error)
             else
+            {
                 res.json(results);
+            }
             conn.end()
 
         })
@@ -214,6 +216,6 @@ const delCustomer = (req, res, next) => {
     })*/
 }
 
-module.exports = { sell , buy, getAllCustomers, updateCustomer , setCustomer, delCustomer }
+module.exports = { sell , buy, getAllTransactions, updateCustomer , setCustomer, delCustomer }
 
 

@@ -46,6 +46,8 @@ module.exports = function (server) {
     const transaction = require('../api/transactionDao')
     protectedApi.post('/sell', transaction.sell)
     protectedApi.post('/buy', transaction.buy)
+    protectedApi.post('/getAllTransactions', transaction.getAllTransactions)
+    
     
 /*
     const ticketService = require('../api/ticket/ticketService')
