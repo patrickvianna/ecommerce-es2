@@ -29,6 +29,8 @@
             }                
             else 
                 Msg.addError('Não foi possível atualizar os dados do produto')
+
+            $scope.contatoForm.$setPristine(); 
         }  
         
         //CHAMADA DA FUNÇÃO QUANDO ENTRA NO CONTROLLER

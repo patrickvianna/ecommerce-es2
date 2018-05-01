@@ -3,19 +3,51 @@
     <div class="jumbotron " ng-controller="ViewFornecedorCtrl as nUserF">	
      
         <form name="contatoForm">
-            <h2>Visualizar Fornecedor</h2>
+            <h2>Atualizar Fornecedor</h2>
             ID:
             <input class="form-control" type="text" ng-model="nUserF.Fornecedor.value.ID" name="ID" ng-disabled="true"/>
             Razão Social:
-            <input class="form-control" type="text" ng-model="nUserF.Fornecedor.value.RAZAO_SOCIAL" name="name" ng-required="true"/>
+            <input class="form-control" type="text" ng-model="nUserF.Fornecedor.value.RAZAO_SOCIAL" name="razaoSocial" ng-required="true"/>
             CNPJ:
-            <input class="form-control" type="text" ng-model="nUserF.Fornecedor.value.CNPJ" name="name" ng-required="true"/>
+            <input class="form-control" type="text" ng-model="nUserF.Fornecedor.value.CNPJ" name="cnpj" ng-required="true"/>
             Telefone:
-            <input class="form-control" type="text" ng-model="nUserF.Fornecedor.value.TELEFONE" name="phone" ng-required="true"/>
-        </form>
-        Endereço:
-        <textarea class="form-control" ng-model="nUserF.Fornecedor.value.ENDERECO" name="Descricao" form="contatoForm" maxlength="200" ng-required="true"></textarea>
-        <button class="btn btn-primary btn-block" ng-click="nUserF.updateFornecedor()" style="width: 20%;float:right;margin-top: 3%;">Atualizar Cliente</button>
+            <input class="form-control" type="text" ng-model="nUserF.Fornecedor.value.TELEFONE" name="telefone" ng-pattern="/^\d{4,5}-\d{4}$/" ng-required="true"/>
+            Endereço:
+            <textarea class="form-control" ng-model="nUserF.Fornecedor.value.ENDERECO" name="Descricao" form="contatoForm" maxlength="200" ng-required="true"></textarea>
+        </form><br>
+         <!-- validação -->
+         <ul ng-show="contatoForm.razaoSocial.$error.required && contatoForm.razaoSocial.$dirty" class="bg-danger">
+            <li><h6>Por favor, preenchar o campo Razão Social!</h6></li>
+        </ul>
+        <ul ng-show="contatoForm.razaoSocial.$error.minlength" class="bg-danger">
+            <li><h6>O campo Razão Social deve ter no minimo 10 caracteres.</h6></li>
+        </ul>
+        <ul ng-show="contatoForm.cnpj.$error.required && contatoForm.cnpj.$dirty" class="bg-danger">
+            <li><h6>Por favor, preenchar o campo CNPJ!</h6></li>
+        </ul>
+        <ul ng-show="contatoForm.cnpj.$error.minlength" class="bg-danger">
+           <li><h6>O campo CNPJ deve ter no minimo 14 caracteres.</h6></li>
+        </ul>
+        <ul ng-show="contatoForm.telefone.$error.required && contatoForm.telefone.$dirty" class="bg-danger">
+           <li><h6>Por favor, preenchar o campo Telefone!</h6></li>
+        </ul>
+        <ul ng-show="contatoForm.telefone.$error.pattern" class="bg-danger">
+            <li><h6>O campo Telefone deve ter o formato 99999-9999.</h6></li>
+        </ul>
+        <ul ng-show="contatoForm.Descricao.$error.required && contatoForm.Descricao.$dirty" class="bg-danger">
+            <li><h6>Por favor, preenchar o campo Endereço!</h6></li>
+        </ul>
+        <ul ng-show="contatoForm.Descricao.$error.maxlength" class="bg-danger">
+            <li><h6>O campo Endereço deve ter no máximo 500 caracteres.</h6></li>
+        </ul>
+
+        <div class="container-fluid">
+            <div class="col-xs-1 col-xs-offset-10 col-md-1 col-md-offset-11">
+                <button class="btn btn-primary  btn-sm" ng-click="nUserF.updateFornecedor()" ng-disabled="contatoForm.$invalid">Atualizar</button>
+            </div>   
+        </div>
+        
+        
     </div>
     </div>
 </div>

@@ -29,7 +29,9 @@
                 vm.Customer.address = ""
             }                
             else    
-                Msg.addError("Houve um erro ao inserir o cliente")                
+                Msg.addError("Houve um erro ao inserir o cliente")
+            
+            $scope.contatoForm.$setPristine();
         }
 
         vm.user = {

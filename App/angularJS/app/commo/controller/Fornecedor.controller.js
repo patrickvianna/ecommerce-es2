@@ -32,7 +32,9 @@
                 
             }                
             else    
-                Msg.addError("Houve um erro ao inserir o fornecedor")                
+                Msg.addError("Houve um erro ao inserir o fornecedor")  
+            
+            $scope.contatoForm.$setPristine();              
         }
 
         vm.user = {

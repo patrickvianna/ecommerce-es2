@@ -1,5 +1,5 @@
 <div class=" row">
-        <div class="col-xs-10 col-xs-offset-1 col-md-10 col-md-offset-1 ">
+    <div class="col-xs-10 col-xs-offset-1 col-md-10 col-md-offset-1 ">
         <div class="jumbotron " ng-controller="ViewProductCtrl as nUserC">	
          
             <form name="contatoForm">
@@ -9,10 +9,34 @@
                 Nome:
                 <input class="form-control" type="text" ng-model="nUserC.Product.value.name" name="name" ng-required="true"/>
                 Valor
-                <input class="form-control" type="text" ng-model="nUserC.Product.value.price" name="price" ng-required="true"/>
+                <input class="form-control" type="text" ng-model="nUserC.Product.value.price"  ng-pattern="/^\d{1,5}.\d{2}$/" name="price" ng-required="true"/>
                 Estoque
-                <input class="form-control" type="text" ng-model="nUserC.Product.value.stock" name="stock" ng-disabled="true"/>
-            <button class="btn btn-primary btn-block" ng-click="nUserC.updateProduct()" >Atualizar Produto</button>
+                <input class="form-control" type="number" min="0" max="100" ng-model="nUserC.Product.value.stock" name="stock" ng-disabled="true"/>
+            </form><br>
+
+            <!-- Validação -->
+             <ul ng-show="contatoForm.name.$error.required && contatoForm.name.$dirty" class="bg-danger">
+                <li><h6>Por favor, preenchar o campo Nome!</h6></li>
+            </ul>
+            <ul ng-show="contatoForm.name.$error.minlength" class="bg-danger">
+                <li><h6>O campo Nome deve ter no minimo 2 caracteres.</h6></li>
+            </ul>
+            <ul ng-show="contatoForm.price.$error.required && contatoForm.price.$dirty" class="bg-danger">
+                <li><h6>Por favor, preenchar o campo Valor!</h6></li>
+            </ul>
+            <ul ng-show="contatoForm.price.$error.pattern" class="bg-danger">
+                <li><h6>O campo Valor deve ter o formato 0.00.</h6></li>
+            </ul>
+            <ul ng-show="contatoForm.stock.$error.required && contatoForm.stock.$dirty" class="bg-danger">
+                <li><h6>Por favor, preenchar o campo Estoque!</h6></li>
+            </ul>
+            
+            <div class="container-fluid">
+                <div class="col-xs-1 col-xs-offset-10 col-md-1 col-md-offset-11">
+                    <button class="btn btn-primary  btn-sm" ng-click="nUserC.updateProduct()" ng-disabled="contatoForm.$invalid">Atualizar</button>
+                </div>   
+            </div>
+            
         </div>
-        </div>
-        </div>
+    </div>
+</div>

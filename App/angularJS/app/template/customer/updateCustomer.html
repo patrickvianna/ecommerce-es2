@@ -1,5 +1,5 @@
 <div class=" row">
-        <div class="col-xs-10 col-xs-offset-1 col-md-10 col-md-offset-1 ">
+    <div class="col-xs-10 col-xs-offset-1 col-md-10 col-md-offset-1 ">
         <div class="jumbotron " ng-controller="ViewCustomerCtrl as nUserC">	
          
             <form name="contatoForm">
@@ -10,10 +10,36 @@
                 <input class="form-control" type="text" ng-model="nUserC.Customer.value.name" name="name" ng-required="true"/>
                 Telefone
                 <input class="form-control" type="text" ng-model="nUserC.Customer.value.phone" name="phone" ng-required="true"/>
-            </form>
-            Endereço:
-            <textarea class="form-control" ng-model="nUserC.Customer.value.address" name="Descricao" form="contatoForm" maxlength="200" ng-required="true"></textarea>
-            <button class="btn btn-primary btn-block" ng-click="nUserC.updateCustomer()" >Atualizar Cliente</button>
+                Endereço:
+                <textarea class="form-control" ng-model="nUserC.Customer.value.address" name="Descricao" form="contatoForm" maxlength="200" ng-required="true"></textarea>
+            </form><br>
+
+            <!-- Validação -->
+        <ul ng-show="contatoForm.name.$error.required && contatoForm.name.$dirty" class="bg-danger">
+            <li><h6>Por favor, preenchar o campo Nome!</h6></li>
+        </ul>
+        <ul ng-show="contatoForm.name.$error.minlength" class="bg-danger">
+            <li><h6>O campo Nome deve ter no minimo 5 caracteres.</h6></li>
+        </ul>
+        <ul ng-show="contatoForm.phone.$error.required && contatoForm.phone.$dirty" class="bg-danger">
+            <li><h6>Por favor, preenchar o campo Telefone!</h6></li>
+        </ul>
+        <ul ng-show="contatoForm.phone.$error.pattern" class="bg-danger">
+            <li><h6>O campo Telefone deve ter o formato 99999-9999.</h6></li>
+        </ul>
+        <ul ng-show="contatoForm.Descricao.$error.required && contatoForm.Descricao.$dirty" class="bg-danger">
+            <li><h6>Por favor, preenchar o campo Endereço!</h6></li>
+        </ul>
+        <ul ng-show="contatoForm.Descricao.$error.maxlength" class="bg-danger">
+            <li><h6>O campo Endereço deve ter no máximo 200 caracteres.</h6></li>
+        </ul>
+            
+        <div class="container-fluid">
+            <div class="col-xs-1 col-xs-offset-10 col-md-1 col-md-offset-11">
+                <button class="btn btn-primary  btn-sm" ng-click="nUserC.updateCustomer()" ng-disabled="contatoForm.$invalid">Atualizar</button>
+            </div>   
         </div>
+   
         </div>
-        </div>
+    </div>
+</div>
