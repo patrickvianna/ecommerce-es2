@@ -7,7 +7,7 @@
         vm.Product = {
             id : 0,
             name : '',
-            price : '',
+            unitValue : '',
             stock :  ''
         }
 
@@ -28,7 +28,9 @@
                 vm.Product.unitValue = ""
             }                
             else    
-                Msg.addError("Houve um erro ao inserir o produto")                
+                Msg.addError("Houve um erro ao inserir o produto")       
+            
+            $scope.contatoForm.$setPristine();
         }
 
         vm.searchProduct = () => {
@@ -37,7 +39,6 @@
         }
 
         vm.goToViewProduct = (idProduct) => {
-            console.log('visao')
             $state.go('viewProduct', { id: idProduct })
         }
 

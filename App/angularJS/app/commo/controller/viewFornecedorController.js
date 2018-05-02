@@ -26,7 +26,6 @@
             const idRota = $stateParams.id
             const a = Fornecedor.viewFornecedor(idRota)
             vm.Fornecedor = a.$$state
-            console.log(vm.Fornecedor);
         }
 
         vm.updateFornecedor = () => {
@@ -36,6 +35,8 @@
             }                
             else 
                 Msg.addError('Não foi possível atualizar os dados do fornecedor')
+            
+            $scope.contatoForm.$setPristine();
         }  
         
         //CHAMADA DA FUNÇÃO QUANDO ENTRA NO CONTROLLER

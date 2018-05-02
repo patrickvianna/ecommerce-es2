@@ -112,7 +112,7 @@ const delProduct = (req, res, next) => {
     var conn = mysql.createConnection(escdb);
     conn.connect();
 
-    conn.query(`DELETE FROM TAB_PRODUTO WHERE ID = ?`  ,id,  
+    conn.query("DELETE FROM TAB_PRODUTO WHERE ID = ?"  ,id,  
         function (error, results, fiels) {
             console.log(error)
             if (error)

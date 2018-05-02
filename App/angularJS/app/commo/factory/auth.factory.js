@@ -28,7 +28,7 @@
 
                     localStorage.setItem(consts.userKey, JSON.stringify(resp.data))
                     $http.defaults.headers.common.Authorization = resp.data.id
-                    console.log(resp)
+                    //console.log(resp)
                     if(callback) {
                         callback(null, resp.data)
                      }
@@ -42,11 +42,7 @@
 
         function logout(callback) {
             user = null
-
-            console.log('LOGOUT')
-            console.log(getUser())
             localStorage.removeItem(consts.userKey)   
-            console.log(getUser())
 
             $http.defaults.headers.common.Authorization = ''
             if (callback) callback(null)

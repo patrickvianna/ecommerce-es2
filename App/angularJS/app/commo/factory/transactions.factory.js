@@ -1,5 +1,5 @@
 (function () {
-    angular.module('myApp').factory('Customer', ['$http', 'consts', '$q', function ($http, consts, $q){
+    angular.module('myApp').factory('Transaction', ['$http', 'consts', '$q', function ($http, consts, $q){
 
         let idPerson;
         let idCustomer;
@@ -19,6 +19,44 @@
             return Customer;
         }
 
+        function sell (cliente, produtos, vendedor, total) {
+            return $q(function (resolve, reject){
+                    
+                const sellObject = {
+                    cliente : cliente,
+                    produtos : produtos,                    
+                    vendedor : vendedor,
+                    total : total
+                }
+                
+                $http.post(`${consts.apiUrl}/sell`, sellObject)
+                    .then(resp => {
+                        resolve(true)
+                    }).catch(function (resp) {
+                        reject(false)
+                    })
+            })   
+        }
+
+        function buy (fornecedor, produtos, total) {
+            return $q(function (resolve, reject){
+                    
+                const buyObject = {
+                    fornecedor : fornecedor,
+                    produtos : produtos,                    
+                    total : total
+                }
+                
+                $http.post(`${consts.apiUrl}/buy`, buyObject)
+                    .then(resp => {
+                        resolve(true)
+                    }).catch(function (resp) {
+                        reject(false)
+                    })
+            })   
+        }
+
+
         function registerCustomer (nome, telefone, endereco, idPerson, idCustomer) {
             return $q(function (resolve, reject){
                 let cust = new Customer(nome, telefone, endereco, idPerson, idCustomer)
@@ -32,11 +70,9 @@
             })   
         }
 
-        function searchCustomer  (id, name) {
+        function getAllTransactions  (id, name) {
             return $q(function (resolve, reject){
-                const cust = { id, name }
-    
-                $http.post(`${consts.apiUrl}/getAllCustomers`, cust)
+                $http.post(`${consts.apiUrl}/getAllTransactions`, {})
                     .then(resp => {
                         resolve(resp.data)
                     }).catch(function (resp) {
@@ -90,6 +126,6 @@
 
 
 
-        return { registerCustomer , searchCustomer, viewCustomer, updateCustomer, deleteCustomer, Customer };
+        return { sell , buy, getAllTransactions, Customer };
     }])
 })()

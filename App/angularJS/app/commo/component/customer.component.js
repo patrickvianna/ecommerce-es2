@@ -75,11 +75,10 @@ angular.module('myApp')
         $ctrl.searchCustomer = () => {
             const a = Customer.searchCustomer($ctrl.Filter.id, $ctrl.Filter.name)
             $ctrl.lista = a.$$state
-            console.log('CHAMEI')
         }
 
         $ctrl.handleClose = function(id, name) {
-            console.info("in handle close");
+            //console.info("in handle close");
             $ctrl.$close({
                 result: {
                     id, 
@@ -89,7 +88,7 @@ angular.module('myApp')
         };
 
         $ctrl.handleDismiss = function() {
-            console.info("in handle dismiss");
+            //console.info("in handle dismiss");
             $ctrl.$dismiss({
                 reason: 'cancel'
             });

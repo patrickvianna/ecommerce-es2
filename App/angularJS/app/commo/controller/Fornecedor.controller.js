@@ -32,7 +32,9 @@
                 
             }                
             else    
-                Msg.addError("Houve um erro ao inserir o fornecedor")                
+                Msg.addError("Houve um erro ao inserir o fornecedor")  
+            
+            $scope.contatoForm.$setPristine();              
         }
 
         vm.user = {
@@ -43,7 +45,7 @@
         vm.searchFornecedor = () => {
             const a = Fornecedor.searchFornecedor(vm.Filter.id, vm.Filter.razaoSocial)
             vm.lista = a.$$state
-            console.log(vm.lista);
+            //console.log(vm.lista);
         }
 
         vm.goToViewFornecedor = (idFornecedor) => {

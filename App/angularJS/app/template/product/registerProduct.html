@@ -5,13 +5,30 @@
         <form name="contatoForm">
             <h2>Cadastrar produto</h2>
             Nome:
-            <input class="form-control" type="text" ng-model="nUserC.Product.name" name="name" placeholder="Notebook" ng-required="true" />
+            <input class="form-control" type="text" ng-model="nUserC.Product.name" name="name" placeholder="Notebook" ng-required="true" minlength="2" />
             Valor
-            <input class="form-control" type="text" ng-model="nUserC.Product.price" name="price" placeholder="R$2400,00" ng-required="true"/>
-        </form>
+            <input class="form-control" type="text"  ng-model="nUserC.Product.unitValue" ng-pattern="/^\d{1,5}.\d{2}$/" name="unitValue" placeholder="R$2400,00" ng-required="true"/>
+        </form><br>
 
-        <button class="btn btn-primary btn-block" ng-click="nUserC.registerProduct()" style="width: 20%;float:right;margin-top: 3%;" >Adicionar</button>
-    
+        <!-- Validação -->
+        <ul ng-show="contatoForm.name.$error.required && contatoForm.name.$dirty" class="bg-danger">
+            <li><h6>Por favor, preenchar o campo Nome!</h6></li>
+        </ul>
+        <ul ng-show="contatoForm.name.$error.minlength" class="bg-danger">
+            <li><h6>O campo Nome deve ter no minimo 2 caracteres.</h6></li>
+        </ul>
+        <ul ng-show="contatoForm.unitValue.$error.required && contatoForm.unitValue.$dirty" class="bg-danger">
+            <li><h6>Por favor, preenchar o campo Valor!</h6></li>
+        </ul>
+        <ul ng-show="contatoForm.unitValue.$error.pattern" class="bg-danger">
+            <li><h6>O campo Valor deve ter o formato 0.00.</h6></li>
+        </ul>
+
+        <div class="container-fluid">
+            <div class="col-xs-1 col-xs-offset-10 col-md-1 col-md-offset-11">
+                <button class="btn btn-primary  btn-sm" ng-click="nUserC.registerProduct()" ng-disabled="contatoForm.$invalid">Adicionar</button>
+            </div>   
+        </div>
     </div>
     </div>
     </div>

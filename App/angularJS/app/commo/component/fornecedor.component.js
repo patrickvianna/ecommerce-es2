@@ -81,7 +81,7 @@ angular.module('myApp')
         }
 
         $ctrl.handleClose = function(id, name, unitValue, stock) {
-            console.info("in handle close");
+            //console.info("in handle close");
             $ctrl.$close({
                 result: {
                     id, 
@@ -93,7 +93,7 @@ angular.module('myApp')
         };
 
         $ctrl.handleDismiss = function() {
-            console.info("in handle dismiss");
+            //console.info("in handle dismiss");
             $ctrl.$dismiss({
                 reason: 'cancel'
             });

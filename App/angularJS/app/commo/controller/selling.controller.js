@@ -1,7 +1,7 @@
 (function() {
-    angular.module('myApp').controller('SellCtrl', ['$scope', '$http', 'consts', 'Msg', '$state', '$uibModal', 'Customer', CustomerController])
+    angular.module('myApp').controller('SellCtrl', ['$scope', '$http', 'consts', 'Msg', '$state', '$uibModal', 'Customer', 'Transaction', SellController])
 
-    function CustomerController($scope, $http, consts, Msg, $state, $uibModal, Customer) {
+    function SellController($scope, $http, consts, Msg, $state, $uibModal, Customer, Transaction) {
         const vm = this
 
         vm.Customer = {
@@ -24,6 +24,7 @@
         }
 
         vm.listProduct = []
+        vm.total = 0
 
         vm.Filter = {
             id : '',
@@ -47,11 +48,11 @@
             if (produtoInserido)
                 return;
 
-            /*if (vm.Product.qtd > vm.Product.stock)
+            if (vm.Product.qtd > vm.Product.stock)
             {
                 Msg.addInfo("Estoque insuficiente")
                 return;
-            }*/
+            }
 
             vm.Product.total = vm.Product.unitValue * vm.Product.qtd
 
@@ -64,9 +65,9 @@
             vm.Product.qtd = ''
             vm.Product.stock = ''
             vm.Product.total = ''
-        }
 
-        
+            calcularTotal()
+        }        
 
         vm.changeTotal = () => {
             vm.Product.total = vm.Product.unitValue * vm.Product.qtd
@@ -76,19 +77,44 @@
             vm.listProduct.forEach(element => {
                 if(element.id == item)
                     vm.listProduct.splice(element, 1)
-            });            
+            });   
+            calcularTotal()         
         }
 
-        vm.goToViewCustomer = (idCustomer) => {
-            $state.go('viewCustomer', { id: idCustomer })
-            /*const a = Customer.viewCustomer(idCustomer)
-            vm.Customer = a.$$state
-            console.log(a)
-            console.log(vm.Customer)
-            */
+        const calcularTotal = () => {
+            if (vm.listProduct.length > 0)
+            {
+                vm.total = 0
+                vm.listProduct.forEach(element => {
+                    vm.total += element.total
+                });
+            } else 
+                vm.total = 0
         }
 
-        
+        vm.sell = () => {
+            if(vm.Customer.id == '') {
+                Msg.addInfo('Para finalizar a venda selecione o cliente')
+                return;
+            }
+            if (vm.listProduct.length <= 0) {
+                Msg.addInfo('Para finalizar a venda selecione pelo menos 1 produto')
+                return;
+            }
+
+            calcularTotal()
+
+            const vendedor = JSON.parse(localStorage.getItem(consts.userKey)).id
+
+            const resultado = Transaction.sell(vm.Customer, vm.listProduct, vendedor, vm.total)
+            if(resultado)
+            {
+                Msg.addSucess("Venda realizada com sucesso")
+                $state.go('dashboard')                
+            }else {
+                Msg.addError('Houve algo de errado, não foi possível completar a venda')
+            }
+        }      
 
         vm.getProduct = () => {
             $uibModal.open({
@@ -109,7 +135,7 @@
                 resolve: {
                 }
             }).result.then(function(result) {
-                console.info("I was closed, so do what I need to do myContent's controller now and result was->");
+                //console.info("I was closed, so do what I need to do myContent's controller now and result was->");
                 vm.Product = new ProductBuild(result.id, result.name, result.unitValue, result.stock)
                 
                 vm.Product.id = result.id
@@ -118,7 +144,7 @@
                 vm.Product.stock = result.stock
                 
             }, function(reason) {
-                console.info("I was dimissed, so do what I need to do myContent's controller now and reason was->"+reason);
+                //console.info("I was dimissed, so do what I need to do myContent's controller now and reason was->"+reason);
             });
         }
 
@@ -141,11 +167,11 @@
                 resolve: {
                 }
             }).result.then(function(result) {
-                console.info("I was closed, so do what I need to do myContent's controller now and result was->");
-                console.info(result);
+                //console.info("I was closed, so do what I need to do myContent's controller now and result was->");
+                //console.info(result);
                 vm.Customer = result
             }, function(reason) {
-                console.info("I was dimissed, so do what I need to do myContent's controller now and reason was->"+reason);
+                //console.info("I was dimissed, so do what I need to do myContent's controller now and reason was->"+reason);
             });
         }
     }

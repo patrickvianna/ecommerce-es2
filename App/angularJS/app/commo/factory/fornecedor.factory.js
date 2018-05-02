@@ -38,7 +38,6 @@
                 $http.get(`${consts.apiUrl}/getAllFornecedor`, cust)
                     .then(resp => {
                         resolve(resp.data)
-                        console.log(resp.data);
                     }).catch(function (resp) {
                         reject(resp)
                     })                    
@@ -62,8 +61,6 @@
         function updateFornecedor (Fornecedor) {
             return $q(function (resolve, reject){
                 //const cust = { id }
-                console.log(Fornecedor)
-
     
                 $http.post(`${consts.apiUrl}/updateFornecedor`, Fornecedor.value)
                     .then(resp => {

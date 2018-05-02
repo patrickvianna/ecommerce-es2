@@ -1,7 +1,7 @@
 (function() {
-    angular.module('myApp').controller('BuyCtrl', ['$scope', '$http', 'consts', 'Msg', '$state', '$uibModal', 'Customer', 'Transaction', CustomerController])
+    angular.module('myApp').controller('DashboardCtrl', ['$scope', '$http', 'consts', 'Msg', '$state', '$uibModal', 'Transaction', DashboardController])
 
-    function CustomerController($scope, $http, consts, Msg, $state, $uibModal, Customer, Transaction) {
+    function DashboardController($scope, $http, consts, Msg, $state, $uibModal, Transaction) {
         const vm = this
 
         vm.Fornecedor = {
@@ -10,6 +10,7 @@
             phone : '',
             address : ''
         }
+        vm.lista = {}
 
         function ProductBuild (id, name, unitValue, stock, qtd, total)
         {
@@ -28,6 +29,20 @@
         vm.Filter = {
             id : '',
             name : ''
+        }
+
+        vm.visualizar = (id, tipo) => {
+            if (tipo == 'Venda')
+            {
+
+            }
+        }
+
+        function getAllTransactions (){
+            console.log('DASHBOARD')
+            const a = Transaction.getAllTransactions()
+            console.log(a)
+            vm.lista = a.$$state
         }
 
         vm.addProduct = () => {        
@@ -66,9 +81,7 @@
             vm.Product.total = ''
 
             calcularTotal()
-        }
-
-        
+        }        
 
         vm.changeTotal = () => {
             vm.Product.total = vm.Product.unitValue * vm.Product.qtd
@@ -115,65 +128,8 @@
             }
         }      
 
-
-        vm.getProduct = () => {
-            $uibModal.open({
-                template: '<product-modal /*tarefa="$ctrl.tarefa"*/ $close="$close(result)" $dismiss="$dismiss(reason)"></product-modal>',
-                controller: [ function() {
-                    const $ctrl = this
-                    //const rota = id
-                    /*$http.post(`${consts.apiUrl}/getDetail`, {rota})
-                    .then(function(resp){
-                        $ctrl.tarefa = resp.data.issue
-                        console.log($ctrl.tarefa)
-                    }).catch(function(resp){
-                        console.log(resp)
-                    })*/
-                }],
-                controllerAs: '$ctrl',
-                size: 'lg',
-                resolve: {
-                }
-            }).result.then(function(result) {
-                //console.info("I was closed, so do what I need to do myContent's controller now and result was->");
-                vm.Product = new ProductBuild(result.id, result.name, result.unitValue, result.stock)
-                
-                vm.Product.id = result.id
-                vm.Product.name = result.name
-                vm.Product.unitValue = result.unitValue
-                vm.Product.stock = result.stock
-                
-            }, function(reason) {
-                //console.info("I was dimissed, so do what I need to do myContent's controller now and reason was->"+reason);
-            });
-        }
-
-        vm.getFornecedor = () => {                        
-            $uibModal.open({
-                template: '<fornecedor-modal /*tarefa="$ctrl.tarefa"*/ $close="$close(result)" $dismiss="$dismiss(reason)"></fornecedor-modal>',
-                controller: [ function() {
-                    const $ctrl = this
-                    //const rota = id
-                    /*$http.post(`${consts.apiUrl}/getDetail`, {rota})
-                    .then(function(resp){
-                        $ctrl.tarefa = resp.data.issue
-                        console.log($ctrl.tarefa)
-                    }).catch(function(resp){
-                        console.log(resp)
-                    })*/
-                }],
-                controllerAs: '$ctrl',
-                size: 'lg',
-                resolve: {
-                }
-            }).result.then(function(result) {
-                //console.info("I was closed, so do what I need to do myContent's controller now and result was->");
-                //console.log(result)
-                vm.Fornecedor = result
-            }, function(reason) {
-                //console.info("I was dimissed, so do what I need to do myContent's controller now and reason was->"+reason);
-            });
-        }
+        getAllTransactions()
+        
     }
 })()
 

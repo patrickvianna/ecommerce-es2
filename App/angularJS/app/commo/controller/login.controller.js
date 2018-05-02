@@ -22,9 +22,6 @@
         //vm.changeMode = () => vm.loginMode = !vm.loginMode
 
         vm.logar = function() {
-            //console.log('login')
-            //console.log($location.path('/dashboard'))
-            //$window.location.href = $location.path('/dashboard')
             if(vm.loginMode)
             {
                 auth.login(vm.user, err => {

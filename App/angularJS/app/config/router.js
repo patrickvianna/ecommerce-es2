@@ -53,7 +53,7 @@ angular.module('myApp').config([
             templateUrl: 'template/buying.html'
         })
 
-        //$urlRouterProvider.otherwise('/dashboard')
+        $urlRouterProvider.otherwise('/dashboard')
         //$httpProvider.interceptors.push('handleResponseError')
     }])
     .run([
@@ -65,25 +65,22 @@ angular.module('myApp').config([
       function ($rootScope, $http, $location, $window, auth) {
         validateUser()
         $rootScope.$on('$locationChangeStart', () => validateUser())
-  
+
         function validateUser() {
-        //console.log($location.path('/dashboard'))
-        const user = auth.getUser()
-        //JSON.parse(user)
-        console.log(user)
-          const authPage = '/auth.html'
-          const isAuthPage = $window.location.href.includes(authPage)
-  
-          //if(user.logado) console.log('CARALHO')
+            const user = auth.getUser()
+            const authPage = '/auth.html'
+            const isAuthPage = $window.location.href.includes(authPage)
 
-          if ((user == null) && !isAuthPage) {
-                console.log(isAuthPage)
+            //if(user.logado) console.log('CARALHO')
+
+            if ((user == null) && !isAuthPage) {
                 $window.location.href = authPage
-          } else  if (user !=  null){
-                console.log(user)
-                console.log('DASHBOARD')
+            } else  if (user !=  null){
 
-                isAuthPage ? $window.location.href = '/' : $location.path('/dashboard')
+                if(isAuthPage)
+                    $location.path('/dashboard')
+
+                //isAuthPage ? $window.location.href = '/' : $location.path('/dashboard')
                 /*auth.validateToken(user.token, (err, valid) => {
                 if (!valid) {
                     $window.location.href = authPage

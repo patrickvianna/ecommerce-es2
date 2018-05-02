@@ -62,9 +62,7 @@
         function updateCustomer (Customer) {
             return $q(function (resolve, reject){
                 //const cust = { id }
-                console.log(Customer)
 
-    
                 $http.post(`${consts.apiUrl}/updateCustomer`, Customer.value)
                     .then(resp => {
                         resolve(true)
