@@ -51,6 +51,9 @@ angular.module('myApp').config([
         }).state('buying', {
             url:'/buying', 
             templateUrl: 'template/buying.html'
+        }).state('viewTransaction', {
+            url:'/viewTransaction/:tipo/:id', 
+            templateUrl: 'template/viewTransaction.html'
         })
 
         $urlRouterProvider.otherwise('/dashboard')

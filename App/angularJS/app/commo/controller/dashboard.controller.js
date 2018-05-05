@@ -36,16 +36,16 @@
             }
 
             vm.visualizar = (id, tipo) => {
-                if (tipo == 'Venda') {
-
-                }
+                console.log('entrei :', id, tipo);
+                $state.go('viewTransaction', { tipo, id})
             }
 
-            function getAllTransactions() {
+            vm.getAllTransactions = () => {
                 console.log('DASHBOARD')
-                const a = Transaction.getAllTransactions()
-                console.log(a)
-                vm.lista = a.$$state
+                Transaction.getAllTransactions()
+                .then((res) => {
+                    vm.lista = res.data
+                })
             }
 
             vm.getVendedores = () => {
@@ -59,9 +59,7 @@
             }
 
             vm.getVendedorVenda = () => {
-                console.log('entrei')
-                if(vm.vendedores.selectedOption.id != undefined)
-                {
+                if(vm.vendedores.selectedOption.id != undefined) {
                     Vendedor.getVendedorVenda(vm.vendedores.selectedOption.id)
                         .then((res) => {
                             vm.lista = res.data
@@ -69,25 +67,12 @@
                                 Msg.addInfo('Esse vendedor ainda não tem venda')
                         })
                 }
-                // console.log();
-                // console.log(a);
-                // a.then(function(response) {
-                //     //svm.lista = a
-                //     console('then')
-                //     console.log(response)
-                // }, function (reason){
-                //     console.log('no then')
-                //     console.log(reason)
-                // });
-                //}
             }
 
 
-            //CHAMADA DA FUNÇÃO
+            //CHAMADA DAS FUNÇÕES
             vm.getVendedores()
-                .then(function (greeting) {
-                    // vm.getVendedorVenda()
-                })
+            vm.getAllTransactions()                
 
         }
     })()

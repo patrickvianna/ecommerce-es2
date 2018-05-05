@@ -102,33 +102,55 @@ const getAllTransactions = (req, res, next) => {
         })
 }
 
-const updateCustomer = (req, res, next) => {
+const visualizarTransaction = (req, res, next) => {
     let id = req.body.id || ''
-    const name = req.body.name || ''
-    const phone = req.body.phone || ''
-    const address = req.body.address || ''
-    let pessoa = req.body.pessoa || ''
+    const tipo = req.body.tipo || ''
+    let cmd1, cmd2
 
-    pessoa = parseInt(pessoa)
+    console.log(tipo)
     id = parseInt(id)
     
-
-    console.log(req.body)
+    let transactionDetail = {
+        data : '',
+        produtos : []
+    }
     var conn = mysql.createConnection(escdb);
     conn.connect();
+    
+    if(tipo == 'Venda') {
+        cmd1 = "SELECT V.id, 'Venda' tipo, V.VALOR total, V.DATA_VENDA data, VD.ID idVendedor, PV.NOME nomeVendedor, C.ID idCliente, PC.NOME nomeCliente"
+        cmd1 += " FROM TAB_VENDA V " ;
+        cmd1 += " INNER JOIN TAB_VENDEDOR VD ON V.VENDEDOR = VD.ID INNER JOIN TAB_PESSOA PV ON VD.PESSOA = PV.ID "  
+        cmd1 += " INNER JOIN TAB_CLIENTE C ON V.CLIENTE = C.ID INNER JOIN TAB_PESSOA PC ON C.PESSOA = PC.ID "  
+        cmd1 += " WHERE V.ID = ? "  
 
-    conn.query("UPDATE TAB_PESSOA  SET NOME = ?, TELEFONE = ? WHERE ID = ?"  , 
-    [name, phone, pessoa], 
+        cmd2 = "SELECT P.id, P.NOME nome, IV.QUANTIDADE qtd, IV.VALOR total, P.VALOR unitValue "
+        cmd2 += "FROM TAB_ITEM_VENDA IV INNER JOIN TAB_PRODUTO P ON IV.PRODUTO = P.ID WHERE IV.VENDA = ?"
+    } else {
+        cmd1 = "SELECT C.id, 'Compra' tipo, C.VALOR total, C.DATA_COMPRA data, F.ID idFornecedor, F.RAZAO_SOCIAL razaoSocial, F.CNPJ "
+        cmd1 += " FROM TAB_COMPRA C " ;
+        cmd1 += " INNER JOIN TAB_FORNECEDOR F ON C.FORNECEDOR = F.ID "  
+        cmd1 += " WHERE C.ID = ? "  
+
+        cmd2 = "SELECT P.id, P.NOME nome, IC.QUANTIDADE qtd, IC.VALOR total, P.VALOR unitValue "
+        cmd2 += "FROM TAB_ITEM_COMPRA IC INNER JOIN TAB_PRODUTO P ON IC.PRODUTO = P.ID WHERE IC.COMPRA = ?"
+    }
+    
+    conn.query(cmd1, [id], 
         function (error, results, fiels) {
             if (error)
                 res.json(error)
             
-            conn.query("UPDATE TAB_CLIENTE SET ENDERECO = ? WHERE PESSOA = ?"  , [address, pessoa], 
+            transactionDetail.data = results[0]
+
+            conn.query(cmd2 , [id], 
             function (error, results, fiels) {
                 if (error)
                     res.json(error)
-                else
-                    res.json(results);
+                else {
+                    transactionDetail.produtos = results
+                    res.json(transactionDetail)
+                }
                 conn.end()
     
             })
@@ -216,6 +238,6 @@ const delCustomer = (req, res, next) => {
     })*/
 }
 
-module.exports = { sell , buy, getAllTransactions, updateCustomer , setCustomer, delCustomer }
+module.exports = { sell , buy, getAllTransactions, visualizarTransaction , setCustomer, delCustomer }
 
 
