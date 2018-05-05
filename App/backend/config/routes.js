@@ -48,29 +48,7 @@ module.exports = function (server) {
     protectedApi.post('/buy', transaction.buy)
     protectedApi.post('/getAllTransactions', transaction.getAllTransactions)
     
-    
-/*
-    const ticketService = require('../api/ticket/ticketService')
-    //ticketService.getTickets(protectedApi, 'getTickets')
-    protectedApi.post('/getTickets', ticketService.getTickets)
-    protectedApi.post('/getProjetos', ticketService.getProjetos)
-    protectedApi.post('/getTicketProject', ticketService.getTicketProject)
-
-    const newTicketService = require('../api/ticket/newTicketService')
-    protectedApi.post('/setTickets', newTicketService.setTickets)
-    protectedApi.post('/getTipo', newTicketService.getTipo)
-    
-
-    const detailTicketService = require('../api/ticket/detailTicketService')
-    protectedApi.post('/getDetail', detailTicketService.getDetail)
-
-    //protectedApi.route('/getTickets').get(ticketService.getTickets)
-	protectedApi.use(auth)
-*/
-    /*const billingCycleService = require('../api/billingCycle/billingCycleService')
-    billingCycleService.register(protectedApi, '/billingCycles')
-
-    const billingSummaryService = require('../api/billingSummary/billingSummaryService')
-    protectedApi.route('/billingSummary').get(billingSummaryService.getSummary)
-*/
+    const vendedor = require('../api/vendedorDao')
+    protectedApi.post('/getVendedores', vendedor.getVendedores)
+    protectedApi.post('/getVendedorVenda', vendedor.getVendedorVenda)
 }
