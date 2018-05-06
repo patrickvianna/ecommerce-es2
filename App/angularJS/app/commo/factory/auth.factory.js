@@ -6,11 +6,15 @@
        
         let user = null
 
-        function getUser() {
+        function getUser(tab = 0) {
             if(!user) {
                 user = localStorage.getItem(consts.userKey)
             }
-            return user
+            
+            if(tab > 0)
+                return JSON.parse(user)
+            else
+                return user
         }
 
         function signup(user, callback) {

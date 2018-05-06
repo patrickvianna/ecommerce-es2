@@ -75,7 +75,7 @@
             auth.signup(vm.Cadastro, err => err ? Msg.addError(err) : Msg.addSucess('Usuário cadastrdado!'))
         }
 
-        vm.getUser = () => auth.getUser()
+        vm.getUser = (tab = 0) => auth.getUser(tab)
         
     }
 })()
