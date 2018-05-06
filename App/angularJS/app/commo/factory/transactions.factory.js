@@ -38,6 +38,17 @@
             })   
         }
 
+        function estornar (id) {
+            return $q(function (resolve, reject){
+    
+                $http.post(`${consts.apiUrl}/estornar`, { id })
+                    .then(resp => {
+                        resolve(true)
+                    }).catch(function (resp) {
+                        reject(false)
+                    })                    
+            })  
+        }
 
         function registerCustomer (nome, telefone, endereco, idPerson, idCustomer) {
             return $q(function (resolve, reject){
@@ -63,6 +74,6 @@
 
 
 
-        return { sell , buy, getAllTransactions, visualizar};
+        return { sell , buy, getAllTransactions, visualizar, estornar };
     }])
 })()

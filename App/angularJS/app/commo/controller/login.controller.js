@@ -72,7 +72,7 @@
                 Msg.addWarn('Senhas não conferem')
                 return;
             }
-            auth.signup(vm.Cadastro, err => err ? Msg.addError(err) : $location.path('/'))
+            auth.signup(vm.Cadastro, err => err ? Msg.addError(err) : Msg.addSucess('Usuário cadastrdado!'))
         }
 
         vm.getUser = () => auth.getUser()

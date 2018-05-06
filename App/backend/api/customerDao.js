@@ -44,8 +44,6 @@ const updateCustomer = (req, res, next) => {
     pessoa = parseInt(pessoa)
     id = parseInt(id)
     
-
-    console.log(req.body)
     var conn = mysql.createConnection(escdb);
     conn.connect();
 
@@ -132,7 +130,6 @@ const delCustomer = (req, res, next) => {
             
                 conn.query(`DELETE FROM TAB_PESSOA WHERE ID = ?`  , pessoa,  
                 function (error, results, fiels) {
-                    console.log(results)
                     if (error)
                         res.json(error)
                     else

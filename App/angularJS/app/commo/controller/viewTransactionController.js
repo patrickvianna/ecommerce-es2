@@ -19,7 +19,6 @@
             Transaction.visualizar(idRota, tipoRota)
             .then((res) => {
                 vm.tr = res.data
-                console.log('res.data :', res.data);
             }, (reason) => {
                 console.log('reason :', reason);
             })

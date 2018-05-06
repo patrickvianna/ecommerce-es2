@@ -72,7 +72,6 @@ angular.module('myApp').config([
         function validateUser() {
             const user = auth.getUser()
             const authPage = '/auth.html'
-            console.log('user :', user);
             const teste = '/#!/dashboard'
             const isAuthPage = $window.location.href.includes(authPage)
 
@@ -80,7 +79,7 @@ angular.module('myApp').config([
 
             if ((user == null) && !isAuthPage) {
                 $window.location.href = authPage
-            } else  if (user !=  null){
+            } else  if (user !=  null && JSON.parse(user).token != undefined){
                 auth.validateToken(JSON.parse(user).token, (err, valid) => {
                     if(!valid) {
                         $window.location.href = authPage
@@ -90,9 +89,6 @@ angular.module('myApp').config([
                         $http.defaults.headers.common.Authorization = user.token
                     }
                 })
-
-                if(isAuthPage)
-                    $window.location.href = teste
                     //$location.path('/dashboard')
 
                 //isAuthPage ? $window.location.href = '/' : $location.path('/dashboard')

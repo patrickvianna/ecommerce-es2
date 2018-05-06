@@ -48,6 +48,7 @@ module.exports = function (server) {
     protectedApi.post('/buy', transaction.buy)
     protectedApi.post('/getAllTransactions', transaction.getAllTransactions)
     protectedApi.post('/visualizarTransaction', transaction.visualizarTransaction)
+    protectedApi.post('/estornar', transaction.estornar)
     
     const vendedor = require('../api/vendedorDao')
     protectedApi.post('/getVendedores', vendedor.getVendedores)

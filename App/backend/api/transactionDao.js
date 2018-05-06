@@ -48,8 +48,6 @@ const buy = (req, res, next) => {
     const produtos = req.body.produtos || ''
     const total =  req.body.total || ''
 
-    console.log(req.body)
-    
     var conn = mysql.createConnection(escdb);
     conn.connect();
     try {
@@ -107,7 +105,6 @@ const visualizarTransaction = (req, res, next) => {
     const tipo = req.body.tipo || ''
     let cmd1, cmd2
 
-    console.log(tipo)
     id = parseInt(id)
     
     let transactionDetail = {
@@ -165,79 +162,40 @@ const visualizarTransaction = (req, res, next) => {
     })*/
 }
 
-const setCustomer = (req, res, next) => {
-    const nome = req.body.nome || ''
-    const telefone = req.body.telefone || ''
-    const endereco = req.body.endereco || ''
-    const pessoa = req.body.pessoa || '' 
+const estornar = (req, res, next) => {
+    let id = req.body.id || 0
     
     var conn = mysql.createConnection(escdb);
     conn.connect();
-
-    let params = [nome, telefone]
-
-    conn.query(`INSERT INTO TAB_PESSOA (NOME, TELEFONE) VALUES (?, ?)`  , params,  
-        function (error, results, fiels) {
-            if (error)
-                res.json(error)
-                const idPessoa = results.insertId
-
-            conn.query(`INSERT INTO TAB_CLIENTE (ENDERECO, PESSOA) VALUES (?, ?)`  ,
-            [ endereco, idPessoa],  
-                function (error, results, fiels) {
-                    if (error)
-                        res.json(error)
-                    else
-                        res.json(results);
-                    conn.end()
-        
-                })
-            
-        })
-    
-
-    
-    /*router.post('/clientes', (req, res) =>{
-        const nome = req.body.nome.substring(0,150);
-        const cpf = req.body.cpf.substring(0,11);
-        execSQLQuery(`INSERT INTO Clientes(Nome, CPF) VALUES('${nome}','${cpf}')`, res);
-    })*/
+    try {        
+        conn.query("SELECT ID, QUANTIDADE, PRODUTO FROM TAB_ITEM_VENDA WHERE VENDA = ?", id,
+            function (error, results, fiels) {
+                if (error)
+                    res.json(error)
+                
+                const lista = results
+                lista.forEach(element => {
+                    conn.query("UPDATE TAB_PRODUTO SET ESTOQUE = ESTOQUE + ? WHERE ID = ?", [element.QUANTIDADE, element.PRODUTO],
+                    function (error, results, fiels) {
+                        if (error)
+                            res.json(error)
+                    })
+                });
+                conn.query("DELETE FROM TAB_ITEM_VENDA WHERE VENDA = ?", [id],
+                    function (error, results, fiels) {
+                        if (error)
+                            res.json(error)
+                    })
+                conn.query("DELETE FROM TAB_VENDA WHERE ID = ?", [id],
+                    function (error, results, fiels) {
+                        if (error)
+                            res.json(error)
+                    })
+            })
+    } catch (error) {
+        console.log('error :', error);
+    }    
 }
-
-const delCustomer = (req, res, next) => {
-    let pessoa = req.body.pessoa || '' 
-    let idCustomer = req.body.idCustomer || ''
-    
-    pessoa = parseInt(pessoa)
-    idCustomer = parseInt(idCustomer)
-
-    var conn = mysql.createConnection(escdb);
-    conn.connect();
-
-    conn.query(`DELETE FROM TAB_CLIENTE WHERE ID = ?`  ,idCustomer,  
-        function (error, results, fiels) {
-            console.log(error)
-            if (error)
-                res.json(error)
-            
-                conn.query(`DELETE FROM TAB_PESSOA WHERE ID = ?`  , pessoa,  
-                function (error, results, fiels) {
-                    console.log(results)
-                    if (error)
-                        res.json(error)
-                    else
-                        res.json(results);
-                    conn.end()
-        
-                })
-        })    
-    
-    
-    /*router.delete('/clientes/:id', (req, res) =>{
-        execSQLQuery('DELETE FROM Clientes WHERE ID=' + parseInt(req.params.id), res);
-    })*/
-}
-
-module.exports = { sell , buy, getAllTransactions, visualizarTransaction , setCustomer, delCustomer }
+module.exports = { sell , buy, getAllTransactions, visualizarTransaction , estornar }
 
 
