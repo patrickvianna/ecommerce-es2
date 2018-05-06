@@ -19,7 +19,7 @@ const getCustomer = (req, res, next) => {
         })
 }
 
-const getAllCustomers = (req, res, next) => {
+/*const getAllCustomers = (req, res, next) => {
     var conn = mysql.createConnection(escdb);
     conn.connect();
 
@@ -32,7 +32,54 @@ const getAllCustomers = (req, res, next) => {
             conn.end()
 
         })
+}*/
+
+const getAllCustomers = (req, res, next) => {
+    let id = req.body.id || ''
+    let name = req.body.name || ''
+
+    var conn = mysql.createConnection(escdb);
+    conn.connect();
+
+    let comando = "SELECT C.id, P.ID pessoa, P.NOME name, C.ENDERECO address, P.TELEFONE phone FROM TAB_CLIENTE C INNER JOIN TAB_PESSOA P ON C.PESSOA = P.ID"
+    let paramns = []
+
+    if (id != '' || name != '')
+    {
+        comando = comando + " WHERE "
+        if  (id != '' && name != '')
+        {
+            comando = comando + " C.ID = ? AND P.NOME = ?";
+            paramns.push(parseInt(id))
+            paramns.push(name)
+        }else {
+            if (id != '')
+            {
+                comando = comando + " C.ID = ?"
+                paramns.push(parseInt(id))
+            }else {
+                if (name != '')
+                {
+                    comando = comando + " P.NOME LIKE ?";
+                    name = name + "%";
+                    paramns.push(name)
+                   
+                }
+            }
+        }
+    }
+
+    conn.query(comando, paramns,
+        function (error, results, fiels) {
+            if (error)
+                res.json(error)
+            else
+                res.json(results);
+            conn.end()
+
+        })
 }
+
 
 const updateCustomer = (req, res, next) => {
     let id = req.body.id || ''

@@ -5,14 +5,13 @@
             <form name="contatoForm">
                 <h2>Cadastrar Fornecedor</h2>
                 Razão Social:
-                <input class="form-control" type="text" ng-model="nUserF.Fornecedor.razaoSocial" name="razaoSocial" placeholder="Razão Social" ng-required="true" ng-minlength="10"/>
+                <input class="form-control" type="text" ng-model="nUserF.Fornecedor.razaoSocial" name="razaoSocial" ng-required="true" ng-minlength="10"/>
                 CNPJ:
-                <input class="form-control" type="text" ng-model="nUserF.Fornecedor.cnpj" name="cnpj" placeholder="CNPJ" ng-required="true" ng-minlength="10"/>
+                <input class="form-control" type="text" ui-mask="{{maskCnpj}}" ng-model="nUserF.Fornecedor.cnpj" name="cnpj"  ng-required="true" ng-minlength="10"/>
                 Telefone:
-                <input class="form-control" type="text" ng-model="nUserF.Fornecedor.telefone" name="telefone" ng-pattern="/^\d{4,5}-\d{4}$/" placeholder="Telefone" ng-required="true" ng-minlength="10"/>
+                <input class="form-control" type="text"  ng-model="nUserF.Fornecedor.telefone" ng-required="true" ng-minlength="10" ui-mask='{{maskTel}}'/>
                 Endereço:
-                <textarea class="form-control" ng-model="nUserF.Fornecedor.address" name="Descricao" form="contatoForm" placeholder="Descrição" maxlength="500" ng-required="true"></textarea>
-        
+                <textarea class="form-control" ng-model="nUserF.Fornecedor.address" name="Descricao" form="contatoForm"  maxlength="500" ng-required="true"></textarea>
             </form><br>
             
             <!-- validação -->

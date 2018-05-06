@@ -5,11 +5,11 @@
         <form name="contatoForm">
             <h2>Cadastrar cliente</h2>
             Nome:
-            <input class="form-control" type="text" ng-model="nUserC.Customer.name" name="nome" placeholder="Nome" ng-required="true" ng-minlength="5"/>
+            <input class="form-control" type="text"  ng-model="nUserC.Customer.name" name="nome" ng-required="true" ng-minlength="5"/>
             Telefone
-            <input class="form-control" type="text" ng-model="nUserC.Customer.phone" name="telefone" placeholder="Telefone" ng-pattern="/^\d{4,5}-\d{4}$/" ng-required="true" ng-minlength="5"/>
+            <input class="form-control" type="text" ui-mask="{{maskTel}}" ng-model="nUserC.Customer.phone" name="telefone" ng-required="true" ng-minlength="5"/>
             Endereço:
-            <textarea class="form-control" ng-model="nUserC.Customer.address" name="endereco" form="contatoForm" ng-required="true" placeholder="Descrição" ng-minlength="10" ng-maxlength="200"></textarea>
+            <textarea class="form-control" ng-model="nUserC.Customer.address" name="endereco" form="contatoForm" ng-required="true" ng-minlength="10" ng-maxlength="200"></textarea>
         </form><br>
         
         <!-- Validação -->
@@ -21,9 +21,6 @@
         </ul>
         <ul ng-show="contatoForm.telefone.$error.required && contatoForm.telefone.$dirty" class="bg-danger">
             <li><h6>Por favor, preenchar o campo Telefone!</h6></li>
-        </ul>
-        <ul ng-show="contatoForm.telefone.$error.pattern" class="bg-danger">
-            <li><h6>O campo Telefone deve ter o formato 99999-9999.</h6></li>
         </ul>
         <ul ng-show="contatoForm.endereco.$error.required && contatoForm.endereco.$dirty" class="bg-danger">
             <li><h6>Por favor, preenchar o campo Endereço!</h6></li>

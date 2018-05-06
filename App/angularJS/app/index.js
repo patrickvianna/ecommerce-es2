@@ -5,5 +5,6 @@ angular.module('myApp', [
     'ngTouch',
     'ui.bootstrap',
     //'angular-sanitize',
+    'ui.mask',
     'textAngular'
   ])

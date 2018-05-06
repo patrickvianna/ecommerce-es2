@@ -22,31 +22,8 @@
             </div>
         </form>
         
-        <!--form name="contatoForm">
-            <h2>Cadastrar cliente</h2>
-            Nome:
-            <input class="form-control" type="text" ng-model="nUserC.tarefa.titulo" name="title" placeholder="Título" ng-required="true" ng-minlength="10"/>
-            Telefone
-            <input class="form-control" type="text" ng-model="nUserC.tarefa.titulo" name="title" placeholder="Título" ng-required="true" ng-minlength="10"/>
-        </form>
-        Endereço:
-        <textarea class="form-control" ng-model="nUserC.tarefa.descricao" name="Descricao" form="contatoForm" placeholder="Descrição" maxlength="500"></textarea>
-    -->
-        <!--div ng-show="contatoForm.title.$error.required && contatoForm.title.$edirty" class="alert alert-danger">
-            Por favor, preencha o nome!
-        </div>
-        <div ng-show="contatoForm.nome.$error.minlength" class="alert alert-danger">
-            No minimo 10 caracteres
-        </div>
-    
-        <div ng-show="contatoForm.telefone.$error.required && contatoForm.telefone.$dirty" class="alert alert-danger">
-            Por favor, preencha o telefone!
-        </div>
-        <a class="btn btn-info btn-sm" ui-sref="ticketList">Voltar</a>
-        <button class="btn btn-primary btn-block" ng-click="nUserC.setTickets()" >Adicionar Cliente</button> < ng-disabled="!contatoForm.$valid"-->
-    
         <div class="table-responsive"></div>
-        <table class="table"> <!-- ng-show="tickets.length > 0" -->
+        <table class="table"> 
             <thead class="thead-light">
                 <tr>
                     <th >ID</a></th>
@@ -57,15 +34,12 @@
                 </tr>
             </thead>
             <tbody>
-                <tr ng-repeat="item in nCust.lista.value track by $index"> <!-- | filter: {titulo: criterioDeBusca} | filter: {status: selectedStatus} -->
+                <tr ng-repeat="item in nCust.lista.value track by $index"> 
                     <td>{{item.id}}</td>
                     <td>{{item.name}}</td>
                     <td><a ng-click="nCust.goToViewCustomer(item.id)" ><i class="fa fa-eye"></i> </a></td>
                     <td><a ng-click="nCust.goToUpdateCustomer(item.id)" ><i class="fa fa-edit"></i> </a></td>
                     <td><a ng-click="nCust.deleteCustomer(item.id, item.pessoa)"><i class="fa fa-trash"></i> </a></td>
-                    
-                    <!--td><a ng-click="ticketC.detailTicket(ticket.id)" class="btn btn-small btn-danger">Ver</a></td-->
-
                 </tr>
             </tbody>
         </table>

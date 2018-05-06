@@ -35,10 +35,10 @@
         function searchCustomer  (id, name) {
             return $q(function (resolve, reject){
                 const cust = { id, name }
-    
                 $http.post(`${consts.apiUrl}/getAllCustomers`, cust)
                     .then(resp => {
                         resolve(resp.data)
+                        console.log(resp.data)
                     }).catch(function (resp) {
                         reject(resp)
                     })                    

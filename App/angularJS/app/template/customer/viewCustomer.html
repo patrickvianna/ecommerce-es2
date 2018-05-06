@@ -9,7 +9,7 @@
                 Nome:
                 <input class="form-control" type="text" ng-model="nUserC.Customer.value.name" name="name" ng-disabled="true"/>
                 Telefone
-                <input class="form-control" type="text" ng-model="nUserC.Customer.value.phone" name="phone" ng-disabled="true"/>
+                <input class="form-control" type="text" ui-mask="{{maskTel}}" ng-model="nUserC.Customer.value.phone" name="phone" ng-disabled="true"/>
             </form>
             Endereço:
             <textarea class="form-control" ng-model="nUserC.Customer.value.address" name="Descricao" form="contatoForm" ng-disabled="true"></textarea>

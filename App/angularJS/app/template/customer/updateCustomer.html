@@ -9,7 +9,7 @@
                 Nome:
                 <input class="form-control" type="text" ng-model="nUserC.Customer.value.name" name="name" ng-required="true"/>
                 Telefone
-                <input class="form-control" type="text" ng-model="nUserC.Customer.value.phone" name="phone" ng-required="true"/>
+                <input class="form-control" ui-mask="{{maskTel}}" type="text" ng-model="nUserC.Customer.value.phone" name="phone" ng-required="true"/>
                 Endereço:
                 <textarea class="form-control" ng-model="nUserC.Customer.value.address" name="Descricao" form="contatoForm" maxlength="200" ng-required="true"></textarea>
             </form><br>
@@ -23,9 +23,6 @@
         </ul>
         <ul ng-show="contatoForm.phone.$error.required && contatoForm.phone.$dirty" class="bg-danger">
             <li><h6>Por favor, preenchar o campo Telefone!</h6></li>
-        </ul>
-        <ul ng-show="contatoForm.phone.$error.pattern" class="bg-danger">
-            <li><h6>O campo Telefone deve ter o formato 99999-9999.</h6></li>
         </ul>
         <ul ng-show="contatoForm.Descricao.$error.required && contatoForm.Descricao.$dirty" class="bg-danger">
             <li><h6>Por favor, preenchar o campo Endereço!</h6></li>

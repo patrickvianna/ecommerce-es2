@@ -39,6 +39,8 @@
             senha : 1
         }
 
+        $scope.maskTel = "(99)99999-9999";
+
         vm.searchCustomer = () => {
             const a = Customer.searchCustomer(vm.Filter.id, vm.Filter.name)
             vm.lista = a.$$state
@@ -69,37 +71,6 @@
                 Msg.addError("Não foi possível excluir o cliente")
             }
         }
-
-        /*vm.setTickets = () => {
-            vm.tarefa.tipo = vm.tipo.idTipo
-            vm.tarefa.prioridade = vm.severidade.idSeveridade
-            vm.tarefa.projeto = vm.projetos.selectedOption.id
-            vm.tarefa.idUser = JSON.parse(localStorage.getItem(consts.userKey)).id
-            $http.post(`${consts.apiUrl}/setTickets`, vm.tarefa)
-            .then(resp => {
-                //vm.tickets = resp.data
-                console.log(resp)
-                $state.go('ticketList')
-                Msg.addSucess('Criado com sucesso')
-            }).catch(function (resp) {
-                console.log(resp)
-                Msg.addError('Ops, houve algo de errado')
-            })
-        }
-
-        function getProjetos() {
-                $http.post(`${consts.apiUrl}/getProjetos`, JSON.parse(localStorage.getItem(consts.userKey)))
-                .then(resp => {
-                    vm.projetos.lista = resp.data
-                    vm.projetos.selectedOption = resp.data[0] || ''
-                    console.log(resp.data)
-                }).catch(resp => {
-                    Msg.addError('Não foi possível carregar os projetos')
-                })
-            }
-        
-
-        getProjetos()*/
     }
 })()
 

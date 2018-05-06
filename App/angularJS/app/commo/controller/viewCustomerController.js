@@ -21,6 +21,8 @@
             senha : 1
         }
 
+        $scope.maskTel = "(99)99999-9999";
+
         function getCustomer () {
             const idRota = $stateParams.id
             const a = Customer.viewCustomer(idRota)

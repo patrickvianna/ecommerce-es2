@@ -19,6 +19,9 @@
 
         vm.lista = { a : 0}
 
+        $scope.maskTel = '(99)9999-9999';
+        $scope.maskCnpj = '99.999.999/9999-99';
+
         vm.registerFornecedor = () => {
             let retorno = Fornecedor.registerFornecedor(vm.Fornecedor.razaoSocial, vm.Fornecedor.cnpj,vm.Fornecedor.telefone, vm.Fornecedor.address);
 

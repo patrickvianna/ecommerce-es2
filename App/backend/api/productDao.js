@@ -45,7 +45,8 @@ const getAllProducts = (req, res, next) => {
             }else {
                 if (name != '')
                 {
-                    comando = comando + " P.NOME = ?";
+                    comando = comando + " P.NOME LIKE ?";
+                    name = name + "%";
                     paramns.push(name)
                 }
             }
@@ -66,11 +67,12 @@ const getAllProducts = (req, res, next) => {
 
 const updateProduct = (req, res, next) => {
     let id = req.body.id || ''
-    const name = req.body.name || ''
+    let name = req.body.name || ''
     let price = req.body.price || ''
-    price = parsed(price)
+    price = parseFloat(price)
     id = parseInt(id)
 
+    
     var conn = mysql.createConnection(escdb);
     conn.connect();
 

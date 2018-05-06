@@ -22,6 +22,9 @@
             senha : 1
         }
 
+        $scope.maskTel = '(99)9999-9999';
+        $scope.maskCnpj = '99.999.999/9999-99';
+
         function getFornecedor () {
             const idRota = $stateParams.id
             const a = Fornecedor.viewFornecedor(idRota)

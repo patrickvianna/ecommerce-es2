@@ -20,11 +20,40 @@ const getFornecedor = (req, res, next) => {
 }
 
 const getAllFornecedor = (req, res, next) => {
-    console.log('entrei')
+    let id = req.body.id || ''
+    let razaoSocial = req.body.razaoSocial || ''
+
     var conn = mysql.createConnection(escdb);
     conn.connect();
 
-    conn.query("SELECT ID, RAZAO_SOCIAL, CNPJ, TELEFONE, ENDERECO FROM TAB_FORNECEDOR",
+    let comando = "SELECT F.ID, F.RAZAO_SOCIAL, F.CNPJ, F.TELEFONE, F.ENDERECO FROM TAB_FORNECEDOR F "
+    let paramns = []
+
+    if (id != '' || razaoSocial != '')
+    {
+        comando = comando + " WHERE "
+        if  (id != '' && razaoSocial != '')
+        {
+            comando = comando + "F.ID = ? AND F.RAZAO_SOCIAL = ?"
+            paramns.push(parseInt(id))
+            paramns.push(razaoSocial)
+        }else {
+            if (id != '')
+            {
+                comando = comando + "F.ID = ?"
+                paramns.push(parseInt(id))
+            }else {
+                if (razaoSocial != '')
+                {
+                    comando = comando + "F.RAZAO_SOCIAL LIKE ?"
+                    razaoSocial = razaoSocial + "%";
+                    paramns.push(razaoSocial)
+                }
+            }
+        }
+    }
+    
+    conn.query(comando, paramns,
         function (error, results, fiels) {
             if (error)
                 res.json(error)

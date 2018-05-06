@@ -56,7 +56,6 @@
 
         function updateProduct (Product) {
             return $q(function (resolve, reject){
-    
                 $http.post(`${consts.apiUrl}/updateProduct`, Product.value)
                     .then(resp => {
                         resolve(true)

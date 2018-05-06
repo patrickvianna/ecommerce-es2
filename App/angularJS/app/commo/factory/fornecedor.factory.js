@@ -34,10 +34,11 @@
 
         function searchFornecedor  (id, razaoSocial) {
             return $q(function (resolve, reject){
-                const cust = { id, razaoSocial}
-                $http.get(`${consts.apiUrl}/getAllFornecedor`, cust)
+                const forn = { id, razaoSocial }
+                $http.post(`${consts.apiUrl}/getAllFornecedor`, forn)
                     .then(resp => {
                         resolve(resp.data)
+                        console.log(resp.data)
                     }).catch(function (resp) {
                         reject(resp)
                     })                    
