@@ -28,7 +28,7 @@
                     if (err) {
                         Msg.addError('Erro ao logar')
                     } else {
-                        $location.path('/dashboard')
+                        $location.path('/')
                         Msg.addSucess('Bem-vindo', 'Logado com sucesso!')
                     }
                 })
@@ -72,7 +72,7 @@
                 Msg.addWarn('Senhas não conferem')
                 return;
             }
-            auth.signup(vm.Cadastro, err => err ? Msg.addError(err) : $location.path('/'))
+            auth.signup(vm.Cadastro, err => err ? Msg.addError(err) : Msg.addSucess('Usuário cadastrdado!'))
         }
 
         vm.getUser = () => auth.getUser()

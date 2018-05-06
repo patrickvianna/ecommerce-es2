@@ -70,12 +70,9 @@ const updateFornecedor = (req, res, next) => {
     const cnpj = req.body.CNPJ || ''
     const telefone = req.body.TELEFONE || ''
     const address = req.body.ENDERECO || ''
-    
 
     id = parseInt(id)
     
-
-    console.log(req.body)
     var conn = mysql.createConnection(escdb);
     conn.connect();
    
@@ -86,7 +83,6 @@ const updateFornecedor = (req, res, next) => {
                 res.json(error)
             else
                 res.json(results);
-                console.log(results);
             conn.end()
         })
 
@@ -98,12 +94,10 @@ const setFornecedor = (req, res, next) => {
     const telefone = req.body.telefone || ''
     const endereco = req.body.endereco || ''
    
-    
     var conn = mysql.createConnection(escdb);
     conn.connect();
 
     let params = [razaoSocial, cnpj, telefone, endereco]
-    console.log(params);
 
     conn.query(`INSERT INTO TAB_FORNECEDOR (RAZAO_SOCIAL, CNPJ, TELEFONE, ENDERECO) VALUES (?, ?, ?, ?)`  , params,  
         function (error, results, fiels) {
@@ -126,7 +120,6 @@ const setFornecedor = (req, res, next) => {
 const delFornecedor = (req, res, next) => {
     let id = req.body.idFornecedor || '' 
     id = parseInt(id)
-    console.log(id)
 
     var conn = mysql.createConnection(escdb);
     conn.connect();
@@ -138,7 +131,6 @@ const delFornecedor = (req, res, next) => {
                 res.json(error)
             else
                 res.json(results);
-                console.log(results)
             conn.end()
         })    
 }

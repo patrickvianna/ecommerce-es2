@@ -27,7 +27,8 @@
                                 'Novo usuário? Registrar aqui!' :
                                 'Já é cadastrado? Entrar aqui!' }}
                         </a>                            
-                        <button  class="btn btn-primary btn-block">Entrar</button> 
+                        <button  class="btn btn-primary btn-block" ng-if="loginC.loginMode">Entrar</button> 
+                        <button  class="btn btn-primary btn-block" ng-if="!loginC.loginMode">Cadastrar</button> 
                     </form>
                 </div>
             </div>

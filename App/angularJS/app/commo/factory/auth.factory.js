@@ -25,9 +25,11 @@
         function submit(url, user, callback) {
             $http.post(`${consts.oapiUrl}/${url}`, user)
                 .then(resp => {
-
-                    localStorage.setItem(consts.userKey, JSON.stringify(resp.data))
-                    $http.defaults.headers.common.Authorization = resp.data.id
+                    if (url == 'login')
+                    {
+                        localStorage.setItem(consts.userKey, JSON.stringify(resp.data))
+                        $http.defaults.headers.common.Authorization = resp.data.id
+                    }
                     //console.log(resp)
                     if(callback) {
                         callback(null, resp.data)

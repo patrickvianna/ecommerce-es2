@@ -31,18 +31,29 @@ const login = (req, res, next) => {
     VerificaLoginSenha(login, senha)
     .then(result => {
         console.log(result)
+        
         if(result.entrei) {
             let id =  result.id
             let name = result.nome
+            let token
+
+            try {
+                token = jwt.sign({ id, name, admin : true }, env.authSecret, {
+                    expiresIn: "30 minutes"
+                })
+            } catch (error) {
+                console.log('error :', error);
+            }     
+
             console.log('E IGUAL')
-            res.status(200).send({ id, name, logado})
+            res.status(200).send({ id, name, token, logado})
         }else {
             console.log('nao E IGUAL')
             res.status(500).send("Usuário ou senha incorretos")        
         } 
         //res.status(200).send(result)
     })       
-            
+           
           /*  console.log('SAI DO CONN')
             if(entrei) {
                 console.log('E IGUAL')
@@ -57,7 +68,6 @@ const login = (req, res, next) => {
 }
 
 const validateToken = (req, res, next) => {
-    console.log('2')
     const token = req.body.token || ''
     jwt.verify(token, env.authSecret, function(err, decoded) {
         return res.status(200).send({valid: !err})
@@ -65,7 +75,6 @@ const validateToken = (req, res, next) => {
 }
 
 const signup = (req, res, next) => {
-    console.log('4')
     const name = req.body.name || ''
     const login = req.body.login || ''
     const telefone = req.body.telefone || ''
@@ -156,20 +165,24 @@ const VerificaLoginSenha = (login, senha) => {
                 try {
                     if (error)
                         res.json(error)
-                    else
-                        console.log("1: " + login +  "   2:  " + results[0].login)
-                        console.log("1: " + senha +  "   2:  " + results[0].senha)
-                        if(results[0].login == login && results[0].senha == senha)
-                        {     
-                            id = results[0].id
-                            nome = results[0].nome
-                            entrei = logado = true
-                            /*token = jwt.sign({ email: 'pa@g.com.br', fullName : nome, _id, id }, env.authSecret, {
-                                expiresIn: "30 minutes"
-                            })*/
-                            
+                    else {
+                        if (results.length > 0 )
+                        {
+                            console.log("1: " + login +  "   2:  " + results[0].login)
+                            console.log("1: " + senha +  "   2:  " + results[0].senha)
+                            if(results[0].login == login && results[0].senha == senha)
+                            {     
+                                id = results[0].id
+                                nome = results[0].nome
+                                entrei = logado = true
+                                /*token = jwt.sign({ email: 'pa@g.com.br', fullName : nome, _id, id }, env.authSecret, {
+                                    expiresIn: "30 minutes"
+                                })*/
+                                
+                            }
+                            resolve({ id, nome, entrei, logado })
                         }
-                        resolve({ id, nome, entrei, logado })
+                    }
                     conn.end()
                 } catch (e) {
                     reject(e)

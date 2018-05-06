@@ -19,57 +19,11 @@ const getCustomer = (req, res, next) => {
         })
 }
 
-/*const getAllCustomers = (req, res, next) => {
+const getVendedores = (req, res, next) => {
     var conn = mysql.createConnection(escdb);
     conn.connect();
 
-    conn.query("SELECT C.id, P.ID pessoa, P.NOME name, C.ENDERECO address, P.TELEFONE phone FROM TAB_CLIENTE C INNER JOIN TAB_PESSOA P ON C.PESSOA = P.ID",
-        function (error, results, fiels) {
-            if (error)
-                res.json(error)
-            else
-                res.json(results);
-            conn.end()
-
-        })
-}*/
-
-const getAllCustomers = (req, res, next) => {
-    let id = req.body.id || ''
-    let name = req.body.name || ''
-
-    var conn = mysql.createConnection(escdb);
-    conn.connect();
-
-    let comando = "SELECT C.id, P.ID pessoa, P.NOME name, C.ENDERECO address, P.TELEFONE phone FROM TAB_CLIENTE C INNER JOIN TAB_PESSOA P ON C.PESSOA = P.ID"
-    let paramns = []
-
-    if (id != '' || name != '')
-    {
-        comando = comando + " WHERE "
-        if  (id != '' && name != '')
-        {
-            comando = comando + " C.ID = ? AND P.NOME = ?";
-            paramns.push(parseInt(id))
-            paramns.push(name)
-        }else {
-            if (id != '')
-            {
-                comando = comando + " C.ID = ?"
-                paramns.push(parseInt(id))
-            }else {
-                if (name != '')
-                {
-                    comando = comando + " P.NOME LIKE ?";
-                    name = name + "%";
-                    paramns.push(name)
-                   
-                }
-            }
-        }
-    }
-
-    conn.query(comando, paramns,
+    conn.query("SELECT V.ID id, P.NOME name FROM TAB_VENDEDOR V INNER JOIN TAB_PESSOA P ON V.PESSOA = P.ID",
         function (error, results, fiels) {
             if (error)
                 res.json(error)
@@ -79,7 +33,22 @@ const getAllCustomers = (req, res, next) => {
 
         })
 }
+const getVendedorVenda = (req, res, next) => {
+    const id = req.body.id || 0
+    
+    var conn = mysql.createConnection(escdb);
+    conn.connect();
 
+    conn.query("SELECT 'Venda' tipo, V.ID id, V.DATA_VENDA data, V.VALOR valor  FROM TAB_VENDA V WHERE V.VENDEDOR = ?",
+        id, function (error, results, fiels) {
+            if (error)
+                res.json(error)
+            else
+                res.json(results);
+            conn.end()
+
+        })
+}
 
 const updateCustomer = (req, res, next) => {
     let id = req.body.id || ''
@@ -105,7 +74,6 @@ const updateCustomer = (req, res, next) => {
                 if (error)
                     res.json(error)
                 else
-                    res.json(results);
                 conn.end()
     
             })
@@ -192,6 +160,6 @@ const delCustomer = (req, res, next) => {
     })*/
 }
 
-module.exports = { getCustomer ,  getAllCustomers, updateCustomer , setCustomer, delCustomer }
+module.exports = { getVendedores , getVendedorVenda, updateCustomer , setCustomer, delCustomer }
 
 

@@ -51,6 +51,9 @@ angular.module('myApp').config([
         }).state('buying', {
             url:'/buying', 
             templateUrl: 'template/buying.html'
+        }).state('viewTransaction', {
+            url:'/viewTransaction/:tipo/:id', 
+            templateUrl: 'template/viewTransaction.html'
         })
 
         $urlRouterProvider.otherwise('/dashboard')
@@ -69,16 +72,24 @@ angular.module('myApp').config([
         function validateUser() {
             const user = auth.getUser()
             const authPage = '/auth.html'
+            const teste = '/#!/dashboard'
             const isAuthPage = $window.location.href.includes(authPage)
 
             //if(user.logado) console.log('CARALHO')
 
             if ((user == null) && !isAuthPage) {
                 $window.location.href = authPage
-            } else  if (user !=  null){
-
-                if(isAuthPage)
-                    $location.path('/dashboard')
+            } else  if (user !=  null && JSON.parse(user).token != undefined){
+                auth.validateToken(JSON.parse(user).token, (err, valid) => {
+                    if(!valid) {
+                        $window.location.href = authPage
+                    } else {
+                        if(isAuthPage)
+                            $window.location.href = teste
+                        $http.defaults.headers.common.Authorization = user.token
+                    }
+                })
+                    //$location.path('/dashboard')
 
                 //isAuthPage ? $window.location.href = '/' : $location.path('/dashboard')
                 /*auth.validateToken(user.token, (err, valid) => {
