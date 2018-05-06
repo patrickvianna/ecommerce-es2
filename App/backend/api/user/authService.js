@@ -34,15 +34,25 @@ const login = (req, res, next) => {
         if(result.entrei) {
             let id =  result.id
             let name = result.nome
+            let token
+
+            try {
+                token = jwt.sign({ id, name, admin : true }, env.authSecret, {
+                    expiresIn: "30 minutes"
+                })
+            } catch (error) {
+                console.log('error :', error);
+            }     
+
             console.log('E IGUAL')
-            res.status(200).send({ id, name, logado})
+            res.status(200).send({ id, name, token, logado})
         }else {
             console.log('nao E IGUAL')
             res.status(500).send("Usuário ou senha incorretos")        
         } 
         //res.status(200).send(result)
     })       
-            
+           
           /*  console.log('SAI DO CONN')
             if(entrei) {
                 console.log('E IGUAL')
@@ -57,7 +67,6 @@ const login = (req, res, next) => {
 }
 
 const validateToken = (req, res, next) => {
-    console.log('2')
     const token = req.body.token || ''
     jwt.verify(token, env.authSecret, function(err, decoded) {
         return res.status(200).send({valid: !err})

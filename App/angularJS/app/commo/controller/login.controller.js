@@ -28,7 +28,7 @@
                     if (err) {
                         Msg.addError('Erro ao logar')
                     } else {
-                        $location.path('/dashboard')
+                        $location.path('/')
                         Msg.addSucess('Bem-vindo', 'Logado com sucesso!')
                     }
                 })
