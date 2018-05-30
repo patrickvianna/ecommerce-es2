@@ -19,8 +19,6 @@ module.exports = function (server) {
      */
     const protectedApi = express.Router()
     server.use('/api', protectedApi)
-    //const teste = require('../api/createTable')
-    //protectedApi.post('/getTeste', teste.getTeste)
 
     const customer = require('../api/customerDao')
     protectedApi.post('/getCustomer', customer.getCustomer)

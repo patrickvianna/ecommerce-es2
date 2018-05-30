@@ -42,9 +42,13 @@
         $scope.maskTel = "(99)99999-9999";
 
         vm.searchCustomer = () => {
-            const a = Customer.searchCustomer(vm.Filter.id, vm.Filter.name)
-            vm.lista = a.$$state
-        
+            
+            Customer.searchCustomer(vm.Filter.id, vm.Filter.name)
+                .then ((res) => {
+                    vm.lista = res.data
+                }, (reason) => {
+                    Msg.addError(reason)
+                })
         }
 
         vm.goToViewCustomer = (idCustomer) => {
