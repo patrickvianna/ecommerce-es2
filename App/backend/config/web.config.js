@@ -1,7 +1,7 @@
 const escdb = {
-    host: "35.198.21.170",
+    host: "35.199.79.147",
     user: "sampleuser",
-    password: "125678",
+    password: "123789",
     database : "escdb"
   };
 

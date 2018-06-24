@@ -53,4 +53,7 @@ module.exports = function (server) {
     const vendedor = require('../api/vendedorDao')
     protectedApi.post('/getVendedores', vendedor.getVendedores)
     protectedApi.post('/getVendedorVenda', vendedor.getVendedorVenda)
+    
+    const payment = require('../api/payments')
+    protectedApi.post('/payments', payment.pay)
 }
