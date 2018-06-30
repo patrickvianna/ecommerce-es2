@@ -55,5 +55,7 @@ module.exports = function (server) {
     protectedApi.post('/getVendedorVenda', vendedor.getVendedorVenda)
     
     const payment = require('../api/payments')
-    protectedApi.post('/payments', payment.pay)
+    protectedApi.post('/payments/pay', payment.pay)
+    protectedApi.post('/payments/consultarVenda', payment.consultarVenda)
+    protectedApi.post('/payments/estornarVenda', payment.estornarVenda)
 }

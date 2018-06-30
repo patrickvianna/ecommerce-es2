@@ -8,6 +8,7 @@ const sell = (req, res, next) => {
     const vendedor = req.body.vendedor || ''
     const total =  req.body.total || ''
     
+    let idVenda = 0
     var conn = mysql.createConnection(escdb);
     conn.connect();
     try {
@@ -17,7 +18,7 @@ const sell = (req, res, next) => {
                if (error)
                    res.json(error)
                
-               const idVenda = results.insertId
+               idVenda = results.insertId
    
                produtos.forEach(element => {
                    conn.query("INSERT INTO TAB_ITEM_VENDA (QUANTIDADE, VALOR, VENDA, PRODUTO) VALUES (?, ?, ?, ?)",
@@ -36,7 +37,7 @@ const sell = (req, res, next) => {
                });
                conn.end()
            })  
-           res.json({sucesso : true})  
+           res.json({sucesso : idVenda})  
     } catch (error) {
         res.json({sucesso : false, error})
     }

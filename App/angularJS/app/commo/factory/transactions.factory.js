@@ -10,14 +10,23 @@
                     vendedor : vendedor,
                     total : total
                 }
-                
+                let itens = ""
+
+                produtos.forEach(element => {
+                    itens += element.name + "  ;  "
+                });
                 $http.post(`${consts.apiUrl}/sell`, sellObject)
                     .then(resp => {
-                        resolve(true)
+                        $http.post(`${consts.apiUrl}/payments/pay`, {nome: cliente, itens, valor: total, qtd: "1", code: resp.data.sucesso })
+                        .then(rp => {
+                            resolve({status: true, url: rp.data})
+                        }).catch(function (rp) {
+                            reject({status: false})
+                    })                    
                     }).catch(function (resp) {
-                        reject(false)
+                        //reject(false)
                     })
-            })   
+                })   
         }
 
         function buy (fornecedor, produtos, total) {

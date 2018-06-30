@@ -107,13 +107,30 @@
             const vendedor = JSON.parse(localStorage.getItem(consts.userKey)).id
 
             const resultado = Transaction.sell(vm.Customer, vm.listProduct, vendedor, vm.total)
-            if(resultado)
-            {
-                Msg.addSucess("Venda realizada com sucesso")
-                $state.go('dashboard')                
-            }else {
-                Msg.addError('Houve algo de errado, não foi possível completar a venda')
-            }
+            console.log("resultado : ", resultado)
+            resultado.then (resp => {
+                console.log("resp", resp)
+                console.log(resp.status)
+                if(resp.status == true || resp.status == "true")
+                {
+                    Msg.addSucess("Venda realizada com sucesso")
+                    $state.go('dashboard') 
+                    console.log("url", resp.url)
+                    window.open(resp.url, '_blank')    // Chamada da URL de pagamento           
+                }else {
+                    Msg.addError('Houve algo de errado, não foi possível completar a venda')
+                }
+            }).catch(resp => {
+                console.log("resp", resp)
+                if(resultado.status)
+                {
+                    Msg.addSucess("Venda realizada com sucesso")
+                    $state.go('dashboard') 
+                    window.open(resp.url, '_blank')    // Chamada da URL de pagamento                     
+                }else {
+                    Msg.addError('Houve algo de errado, não foi possível completar a venda')
+                }
+            })
         }      
 
         vm.getProduct = () => {
